@@ -4,5 +4,8 @@
     {
         public int id { get; set; }
 
+
+        public string Apellidos { get; set; }
+
     }
 }
