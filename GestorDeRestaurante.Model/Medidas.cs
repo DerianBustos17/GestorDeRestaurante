@@ -8,6 +8,8 @@ namespace GestorDeRestaurante.Model
 {
     public class Medidas
     {
+        public int Id { get; set; }
 
+        public string Nombre { get; set; }
     }
 }
