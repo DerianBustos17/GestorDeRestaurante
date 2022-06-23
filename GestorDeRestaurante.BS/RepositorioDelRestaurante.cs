@@ -11,6 +11,13 @@ namespace GestorDeRestaurante.BS
             ElContextoBD = contexto;
         }
 
+        public void AgregueIngredientes(Ingredientes elIngrediente)
+        {
+         
+            ElContextoBD.Ingredientes.Add(elIngrediente);
+            ElContextoBD.SaveChanges();
+        }
+
         public List<Ingredientes> ObtengaLaListaDeIngredientes()
         {
             var resultado = from c in ElContextoBD.Ingredientes

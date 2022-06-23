@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace GestorDeRestaurante.UI.Controllers
 {
@@ -44,10 +45,29 @@ namespace GestorDeRestaurante.UI.Controllers
         // POST: IngredienteController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormCollection collection)
+        public async Task<IActionResult> Create(Model.Ingredientes ingrediente)
         {
             try
             {
+
+                GestorDeRestaurante.Model.Ingredientes elIngrediente = new Model.Ingredientes();
+
+                
+                elIngrediente.Nombre = ingrediente.Nombre;
+
+
+                var httpClient = new HttpClient();
+
+                string json = JsonConvert.SerializeObject(elIngrediente);
+
+                var buffer = System.Text.Encoding.UTF8.GetBytes(json);
+
+                var byteContent = new ByteArrayContent(buffer);
+
+                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                await httpClient.PostAsync("https://localhost:7071/api/Ingredientes", byteContent);
+
                 return RedirectToAction(nameof(Index));
             }
             catch

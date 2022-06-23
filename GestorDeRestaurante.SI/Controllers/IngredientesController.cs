@@ -33,8 +33,19 @@ namespace GestorDeRestaurante.SI.Controllers
 
         // POST api/<IngredientesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] GestorDeRestaurante.Model.Ingredientes ingredientes)
         {
+
+            if (ModelState.IsValid)
+            {
+                ElRepositorio.AgregueIngredientes(ingredientes);
+                return Ok(ingredientes);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+
         }
 
         // PUT api/<IngredientesController>/5
