@@ -10,5 +10,14 @@ namespace GestorDeRestaurante.BS
     {
         List<Model.Ingredientes> ObtengaLaListaDeIngredientes();
         void AgregueIngredientes(Model.Ingredientes elIngrediente);
+
+
+
+        List<Model.Medidas> ObtengaLaListaDeMedidas();
+        Model.Medidas ObTengalaMedida(string Nombre);
+        List<Model.Medidas> ObTengaLasMedidasPorNombre(string nombre);
+        Model.Medidas ObtenerPorIdLaMedida(int Id);
+        void AgregueLaMedida(Model.Medidas medida);
+        void EditarLaMedida(Model.Medidas medida);
     }
 }

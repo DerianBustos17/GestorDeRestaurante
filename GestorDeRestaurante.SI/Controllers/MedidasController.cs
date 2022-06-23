@@ -17,35 +17,70 @@ namespace GestorDeRestaurante.SI.Controllers
 
 
         // GET: api/<MedidasController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("ObtengaLaListaDeMedidas")]
+        public IEnumerable<GestorDeRestaurante.Model.Medidas> OntengaLaListaDeMedidas()
         {
-            return new string[] { "value1", "value2" };
+            List<Model.Medidas> elResultado;
+            elResultado = ElRepositorio.ObtengaLaListaDeMedidas();
+            return elResultado;
         }
 
         // GET api/<MedidasController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("ObTengaLasMedidasPorNombre")]
+        public IEnumerable<GestorDeRestaurante.Model.Medidas> ObTengaLasMedidasPorNombre(string nombre)
         {
-            return "value";
+            List<Model.Medidas> elResultado;
+            elResultado = ElRepositorio.ObTengaLasMedidasPorNombre(nombre);
+            return elResultado;
+        }
+
+        // GET api/<MedidasController>/5
+        [HttpGet("ObtenerPorIdLaMedida")]
+        public GestorDeRestaurante.Model.Medidas ObtenerPorIdLaMedida(int id)
+        {
+            Model.Medidas elResultado;
+            elResultado = ElRepositorio.ObtenerPorIdLaMedida(id);
+            return elResultado;
         }
 
         // POST api/<MedidasController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] GestorDeRestaurante.Model.Medidas medida)
         {
+            if (ModelState.IsValid)
+            {
+                ElRepositorio.AgregueLaMedida(medida);
+                return Ok(medida);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         // PUT api/<MedidasController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("Editar")]
+        public IActionResult Put([FromBody] GestorDeRestaurante.Model.Medidas medida)
         {
+            if (ModelState.IsValid)
+            {
+                ElRepositorio.EditarLaMedida(medida);
+                return Ok(medida);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         // DELETE api/<MedidasController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("Deshabilitar")]
+        public IActionResult Deshabilitar([FromBody] GestorDeRestaurante.Model.Medidas medida)
         {
+
+            medida = ElRepositorio.ObtenerPorIdLaMedida(medida.Id);
+            ElRepositorio.EditarLaMedida(medida);
+            return Ok(medida);
         }
     }
 }
