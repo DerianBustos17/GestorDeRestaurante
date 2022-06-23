@@ -13,5 +13,8 @@ namespace GestorDeRestaurante.DA
         {
 
         }
+        public DbSet<GestorDeRestaurante.Model.Ingredientes> Ingredientes { get; set; }
+
     }
 }
+

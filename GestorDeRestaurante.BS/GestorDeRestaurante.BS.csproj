@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GestorDeRestaurante.DA\GestorDeRestaurante.DA.csproj" />
+    <ProjectReference Include="..\GestorDeRestaurante.Model\GestorDeRestaurante.Model.csproj" />
   </ItemGroup>
 
 </Project>

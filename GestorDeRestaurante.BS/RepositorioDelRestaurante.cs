@@ -1,4 +1,6 @@
-﻿namespace GestorDeRestaurante.BS
+﻿using GestorDeRestaurante.Model;
+
+namespace GestorDeRestaurante.BS
 {
     public class RepositorioDelRestaurante : IRepositorioDelRestaurante
     {
@@ -9,5 +11,11 @@
             ElContextoBD = contexto;
         }
 
+        public List<Ingredientes> ObtengaLaListaDeIngredientes()
+        {
+            var resultado = from c in ElContextoBD.Ingredientes
+                            select c;
+            return resultado.ToList();
+        }
     }
 }

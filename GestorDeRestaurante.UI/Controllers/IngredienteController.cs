@@ -1,18 +1,36 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace GestorDeRestaurante.UI.Controllers
 {
     public class IngredienteController : Controller
     {
         // GET: IngredienteController
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            List<Model.Ingredientes> laLista;
+            try
+            {
+                var httpClient = new HttpClient();
+
+                var response = await httpClient.GetAsync("https://localhost:7071/api/Ingredientes/ObtengaLaLista");
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                laLista = JsonConvert.DeserializeObject<List<GestorDeRestaurante.Model.Ingredientes>>(apiResponse);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return View(laLista);
+
+        
         }
 
         // GET: IngredienteController/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
             return View();
         }
@@ -26,7 +44,7 @@ namespace GestorDeRestaurante.UI.Controllers
         // POST: IngredienteController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(IFormCollection collection)
         {
             try
             {
@@ -47,7 +65,7 @@ namespace GestorDeRestaurante.UI.Controllers
         // POST: IngredienteController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, IFormCollection collection)
         {
             try
             {
@@ -68,7 +86,7 @@ namespace GestorDeRestaurante.UI.Controllers
         // POST: IngredienteController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(int id, IFormCollection collection)
         {
             try
             {

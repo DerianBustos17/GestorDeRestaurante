@@ -8,5 +8,6 @@ namespace GestorDeRestaurante.BS
 {
     public interface IRepositorioDelRestaurante
     {
+        List<Model.Ingredientes> ObtengaLaListaDeIngredientes();
     }
 }
