@@ -48,10 +48,29 @@ namespace GestorDeRestaurante.SI.Controllers
 
         }
 
-        // PUT api/<IngredientesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // GET: api/<EstudiantesController>
+        [HttpGet("ObtenerIngredientePorId")]
+        public GestorDeRestaurante.Model.Ingredientes ObtenerIngredientePorId(int id)
         {
+            Model.Ingredientes elResultado;
+            elResultado = ElRepositorio.ObtenerIngredientePorId(id);
+            return elResultado;
+        }
+
+        // PUT api/<IngredientesController>/5
+        [HttpPut]
+        public IActionResult Put([FromBody] GestorDeRestaurante.Model.Ingredientes ingredientes)
+        {
+
+            if (ModelState.IsValid)
+            {
+                ElRepositorio.EditarIngredientes(ingredientes);
+                return Ok(ingredientes);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         // DELETE api/<IngredientesController>/5

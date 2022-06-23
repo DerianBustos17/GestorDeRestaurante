@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 
@@ -77,18 +78,58 @@ namespace GestorDeRestaurante.UI.Controllers
         }
 
         // GET: IngredienteController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+
+            Model.Ingredientes elIngrediente;
+
+            try
+
+            {
+                var httpClient = new HttpClient();
+
+                var query = new Dictionary<string, string>()
+                {
+
+                    ["id"] = id.ToString()
+                };
+
+                var uri = QueryHelpers.AddQueryString("https://localhost:7071/api/Ingredientes/ObtenerIngredientePorId", query);
+                var response = await httpClient.GetAsync(uri);
+                string apiResponse = await response.Content.ReadAsStringAsync();
+
+                elIngrediente = JsonConvert.DeserializeObject<GestorDeRestaurante.Model.Ingredientes>(apiResponse);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+            return View(elIngrediente);
         }
 
         // POST: IngredienteController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(Model.Ingredientes ingredientes)
         {
             try
             {
+
+                var httpClient = new HttpClient();
+
+                string json = JsonConvert.SerializeObject(ingredientes);
+
+                var buffer = System.Text.Encoding.UTF8.GetBytes(json);
+
+                var byteContent = new ByteArrayContent(buffer);
+
+                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                await httpClient.PutAsync("https://localhost:7071/api/Ingredientes", byteContent);
+
+
                 return RedirectToAction(nameof(Index));
             }
             catch

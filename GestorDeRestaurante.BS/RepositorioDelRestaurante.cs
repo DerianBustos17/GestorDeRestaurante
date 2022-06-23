@@ -18,6 +18,27 @@ namespace GestorDeRestaurante.BS
             ElContextoBD.SaveChanges();
         }
 
+<<<<<<< HEAD
+        public void EditarIngredientes(Ingredientes elIngrediente)
+        {
+            Model.Ingredientes elIngredienteAModificar;
+
+            elIngredienteAModificar = ObtenerIngredientePorId(elIngrediente.Id);
+
+            elIngredienteAModificar.Nombre = elIngrediente.Nombre;
+
+            ElContextoBD.Ingredientes.Update(elIngredienteAModificar);
+            ElContextoBD.SaveChanges();
+        }
+        public Ingredientes ObtenerIngredientePorId(int Id)
+        {
+            Model.Ingredientes resultado;
+
+            resultado = ElContextoBD.Ingredientes.Find(Id);
+
+            return resultado;
+        }
+=======
         public void AgregueLaMedida(Medidas medida)
         {
             ElContextoBD.Medidas.Add(medida);
@@ -45,6 +66,7 @@ namespace GestorDeRestaurante.BS
             return resultado;
         }
 
+>>>>>>> fbb02e1d268bbf558658fb6d4efc0b2bba5d1584
         public List<Ingredientes> ObtengaLaListaDeIngredientes()
         {
             var resultado = from c in ElContextoBD.Ingredientes
