@@ -1,35 +1,113 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace GestorDeRestaurante.UI.Controllers
 {
     public class MedidaController : Controller
     {
-        // GET: MedidaController
-        public ActionResult Index()
+
+
+        // GET: MedidasController
+        public async Task<IActionResult> Index(string nombre)
         {
-            return View();
+            List<Model.Medidas> laListaDeMedidas;
+            try
+            {
+                var httpClient = new HttpClient();
+
+                if (nombre is null)
+                {
+                    var response = await httpClient.GetAsync("https://localhost:7071/api/Medidas/ObtengaLaListaDeMedidas");
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    laListaDeMedidas = JsonConvert.DeserializeObject<List<GestorDeRestaurante.Model.Medidas>>(apiResponse);
+
+                }
+                else
+                {
+                    var query = new Dictionary<string, string>()
+                    {
+
+                        ["nombre"] = nombre
+                    };
+
+                    var uri = QueryHelpers.AddQueryString("https://localhost:7071/api/Medidas/ObTengaLasMedidasPorNombre", query);
+                    var response = await httpClient.GetAsync(uri);
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    laListaDeMedidas = JsonConvert.DeserializeObject<List<GestorDeRestaurante.Model.Medidas>>(apiResponse);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return View(laListaDeMedidas);
         }
 
-        // GET: MedidaController/Details/5
-        public ActionResult Details(int id)
+        // GET: MedidasController/Details/5
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
+            Model.Medidas laMedida;
+
+            try
+
+            {
+                var httpClient = new HttpClient();
+                var query = new Dictionary<string, string>()
+                {
+
+                    ["id"] = id.ToString()
+                };
+
+                var uri = QueryHelpers.AddQueryString("https://localhost:7071/api/Medidas/ObtenerPorIdLaMedida", query);
+                var response = await httpClient.GetAsync(uri);
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                laMedida = JsonConvert.DeserializeObject<GestorDeRestaurante.Model.Medidas>(apiResponse);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+
+            return View(laMedida);
         }
 
-        // GET: MedidaController/Create
+        // GET: MedidasController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: MedidaController/Create
+        // POST: MedidasController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(Model.Medidas medida)
         {
             try
             {
+
+                GestorDeRestaurante.Model.Medidas laMedida = new Model.Medidas();
+
+                laMedida.Nombre = medida.Nombre;
+
+
+
+                var httpClient = new HttpClient();
+
+                string json = JsonConvert.SerializeObject(medida);
+
+                var buffer = System.Text.Encoding.UTF8.GetBytes(json);
+
+                var byteContent = new ByteArrayContent(buffer);
+
+                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                await httpClient.PostAsync("https://localhost:7071/api/Medidas", byteContent);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -38,19 +116,59 @@ namespace GestorDeRestaurante.UI.Controllers
             }
         }
 
-        // GET: MedidaController/Edit/5
-        public ActionResult Edit(int id)
+        // GET: MedidasController/Edit/5
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            Model.Medidas laMedida;
+
+            try
+
+            {
+                var httpClient = new HttpClient();
+
+                var query = new Dictionary<string, string>()
+                {
+
+                    ["id"] = id.ToString()
+                };
+
+                var uri = QueryHelpers.AddQueryString("https://localhost:7071/api/Medidas/ObtenerPorIdLaMedida", query);
+                var response = await httpClient.GetAsync(uri);
+                string apiResponse = await response.Content.ReadAsStringAsync();
+
+                laMedida = JsonConvert.DeserializeObject<GestorDeRestaurante.Model.Medidas>(apiResponse);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+
+            return View(laMedida);
         }
 
-        // POST: MedidaController/Edit/5
+        // POST: MedidasController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(Model.Medidas medida)
         {
             try
             {
+
+                var httpClient = new HttpClient();
+
+                string json = JsonConvert.SerializeObject(medida);
+
+                var buffer = System.Text.Encoding.UTF8.GetBytes(json);
+
+                var byteContent = new ByteArrayContent(buffer);
+
+                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                await httpClient.PutAsync("https://localhost:7071/api/Medidas/Editar", byteContent);
+
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -59,25 +177,45 @@ namespace GestorDeRestaurante.UI.Controllers
             }
         }
 
-        // GET: MedidaController/Delete/5
+        // GET: MedidasController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: MedidaController/Delete/5
+        // POST: MedidasController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Deshabilitar(int id)
         {
+            Model.Medidas laMedida = new Model.Medidas();
+            laMedida.Id = id;
             try
             {
-                return RedirectToAction(nameof(Index));
+
+
+                var httpClient = new HttpClient();
+                string json = JsonConvert.SerializeObject(laMedida);
+
+                var buffer = System.Text.Encoding.UTF8.GetBytes(json);
+
+                var byteContent = new ByteArrayContent(buffer);
+
+                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                var response = await httpClient.PutAsync("https://localhost:7071/api/Medidas/Deshabilitar", byteContent);
+
             }
-            catch
+
+
+            catch (Exception ex)
             {
-                return View();
+                throw ex;
             }
+
+
+            return RedirectToAction(nameof(Index));
         }
     }
+
 }
