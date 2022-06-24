@@ -18,7 +18,6 @@ namespace GestorDeRestaurante.BS
             ElContextoBD.SaveChanges();
         }
 
-<<<<<<< HEAD
         public void EditarIngredientes(Ingredientes elIngrediente)
         {
             Model.Ingredientes elIngredienteAModificar;
@@ -38,7 +37,8 @@ namespace GestorDeRestaurante.BS
 
             return resultado;
         }
-=======
+
+
         public void AgregueLaMedida(Medidas medida)
         {
             ElContextoBD.Medidas.Add(medida);
@@ -66,7 +66,6 @@ namespace GestorDeRestaurante.BS
             return resultado;
         }
 
->>>>>>> fbb02e1d268bbf558658fb6d4efc0b2bba5d1584
         public List<Ingredientes> ObtengaLaListaDeIngredientes()
         {
             var resultado = from c in ElContextoBD.Ingredientes
@@ -106,6 +105,42 @@ namespace GestorDeRestaurante.BS
 
             laListaFiltrada = laLista.Where(x => x.Nombre.Contains(nombre)).ToList();
             return laListaFiltrada;
+        }
+
+        public List<Mesas> ObtengaLaListaDeMesas()
+        {
+            var resultado = from c in ElContextoBD.Mesas
+                            select c;
+            return resultado.ToList();
+        }
+
+        public void AgregueLasMesas(Mesas lasMesas)
+        {
+            lasMesas.Estado = Estado.Disponible;
+            ElContextoBD.Mesas.Add(lasMesas);
+            ElContextoBD.SaveChanges();
+        }
+
+        public void EditarLasMesas(Mesas lasMesas)
+        {
+            Model.Mesas laMesaAModificar;
+
+            laMesaAModificar = ObtenerMesasPorId(lasMesas.Id);
+
+            laMesaAModificar.Nombre = lasMesas.Nombre;
+
+            laMesaAModificar.Estado = lasMesas.Estado;
+            ElContextoBD.Mesas.Update(laMesaAModificar);
+            ElContextoBD.SaveChanges();
+        }
+
+        public Mesas ObtenerMesasPorId(int Id)
+        {
+            Model.Mesas resultado;
+
+            resultado = ElContextoBD.Mesas.Find(Id);
+
+            return resultado;
         }
     }
 }
