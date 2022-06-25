@@ -27,5 +27,7 @@ namespace GestorDeRestaurante.BS
         void AgregueLasMesas(Model.Mesas lasMesas);
         void EditarLasMesas(Model.Mesas lasMesas);
         Model.Mesas ObtenerMesasPorId(int Id);
+        void NoDisponible(Model.Mesas lasMesas);
+        void Disponible(Model.Mesas lasMesas);
     }
 }

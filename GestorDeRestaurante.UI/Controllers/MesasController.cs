@@ -156,7 +156,11 @@ namespace GestorDeRestaurante.UI.Controllers
                 return View();
             }
         }
-            public async Task<ActionResult> Deshabilitar(int id)
+
+   
+
+
+        public async Task<ActionResult> Deshabilitar(int id)
             {
                 Model.Mesas lasMesas = new Model.Mesas();
             lasMesas.Id = id;
@@ -173,7 +177,7 @@ namespace GestorDeRestaurante.UI.Controllers
 
                     byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                    var response = await httpClient.PutAsync("https://localhost:7071/api/Mesas/Deshabilitar", byteContent);
+                    var response = await httpClient.PutAsync("https://localhost:7071/api/Mesas/Deshabilitar" + id,null);
 
                 }
 
@@ -187,7 +191,23 @@ namespace GestorDeRestaurante.UI.Controllers
                 return RedirectToAction(nameof(Index));
 
             }
-        
+        public async Task<ActionResult> Disponible(int id)
+        {
+            try
+            {
+                var httpClient = new HttpClient();
+
+                await httpClient.PutAsync("https://localhost:7071/api/Mesas/Disponible" + id, null);
+
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch
+            {
+                return View();
+            }
+
+        }
 
     }
 }

@@ -72,8 +72,8 @@ namespace GestorDeRestaurante.SI.Controllers
         {
 
             lasMesas = ElRepositorio.ObtenerMesasPorId(lasMesas.Id);
-            lasMesas.Estado = Model.Estado.Nodisponible;
-            ElRepositorio.EditarLasMesas(lasMesas);
+          
+            ElRepositorio.NoDisponible(lasMesas);
             return Ok(lasMesas);
         }
     }
