@@ -82,7 +82,7 @@ namespace GestorDeRestaurante.BS
 
         public Medidas ObTengalaMedida(string Nombre)
         {
-            Model.Medidas resultado = null;
+            Model.Medidas resultado =  null ;
             List<Model.Medidas> laLista;
 
             laLista = ObtengaLaListaDeMedidas();
