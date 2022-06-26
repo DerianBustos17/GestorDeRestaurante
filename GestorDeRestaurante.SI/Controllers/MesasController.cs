@@ -70,10 +70,20 @@ namespace GestorDeRestaurante.SI.Controllers
         [HttpPut("Deshabilitar")]
         public IActionResult Deshabilitar([FromBody] GestorDeRestaurante.Model.Mesas lasMesas)
         {
-
+;
             lasMesas = ElRepositorio.ObtenerMesasPorId(lasMesas.Id);
-          
-            ElRepositorio.NoDisponible(lasMesas);
+            lasMesas.Estado = Model.Estado.Nodisponible;
+            ElRepositorio.EditarLasMesas(lasMesas);
+            return Ok(lasMesas);
+        }
+        // PUT api/<ValuesController>/5
+        [HttpPut("Habilitar")]
+        public IActionResult Habilitar([FromBody] GestorDeRestaurante.Model.Mesas lasMesas)
+        {
+            ;
+            lasMesas = ElRepositorio.ObtenerMesasPorId(lasMesas.Id);
+            lasMesas.Estado = Model.Estado.Disponible;
+            ElRepositorio.EditarLasMesas(lasMesas);
             return Ok(lasMesas);
         }
     }

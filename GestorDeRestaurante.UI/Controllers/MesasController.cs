@@ -162,9 +162,12 @@ namespace GestorDeRestaurante.UI.Controllers
 
         public async Task<ActionResult> Deshabilitar(int id)
             {
+
                 Model.Mesas lasMesas = new Model.Mesas();
             lasMesas.Id = id;
-                try
+            lasMesas.Nombre = " ";
+            lasMesas.Estado = Model.Estado.Nodisponible;
+            try
                 {
 
 
@@ -177,7 +180,7 @@ namespace GestorDeRestaurante.UI.Controllers
 
                     byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                    var response = await httpClient.PutAsync("https://localhost:7071/api/Mesas/Deshabilitar" + id,null);
+                    var response = await httpClient.PutAsync("https://localhost:7071/api/Mesas/Deshabilitar" , byteContent);
 
                 }
 
@@ -191,21 +194,37 @@ namespace GestorDeRestaurante.UI.Controllers
                 return RedirectToAction(nameof(Index));
 
             }
-        public async Task<ActionResult> Disponible(int id)
+        public async Task<ActionResult> Habilitar(int id)
         {
+            Model.Mesas lasMesas = new Model.Mesas();
+            lasMesas.Id = id;
+            lasMesas.Nombre = " ";
+            lasMesas.Estado = Model.Estado.Disponible;
             try
             {
+
+
                 var httpClient = new HttpClient();
+                string json = JsonConvert.SerializeObject(lasMesas);
 
-                await httpClient.PutAsync("https://localhost:7071/api/Mesas/Disponible" + id, null);
+                var buffer = System.Text.Encoding.UTF8.GetBytes(json);
 
-                return RedirectToAction(nameof(Index));
+                var byteContent = new ByteArrayContent(buffer);
+
+                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                var response = await httpClient.PutAsync("https://localhost:7071/api/Mesas/Habilitar", byteContent);
 
             }
-            catch
+
+
+            catch (Exception ex)
             {
-                return View();
+                throw ex;
             }
+
+
+            return RedirectToAction(nameof(Index));
 
         }
 
