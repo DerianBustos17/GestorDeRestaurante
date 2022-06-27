@@ -72,8 +72,17 @@ namespace GestorDeRestaurante.SI.Controllers
         {
 
             lasMesas = ElRepositorio.ObtenerMesasPorId(lasMesas.Id);
-          
-            ElRepositorio.NoDisponible(lasMesas);
+            lasMesas.Estado = Model.Estado.Nodisponible;
+            ElRepositorio.EditarLasMesas(lasMesas);
+            return Ok(lasMesas);
+        }
+        [HttpPut("Habilitar")]
+        public IActionResult Habilitar([FromBody] GestorDeRestaurante.Model.Mesas lasMesas)
+        {
+
+            lasMesas = ElRepositorio.ObtenerMesasPorId(lasMesas.Id);
+            lasMesas.Estado = Model.Estado.Disponible;
+            ElRepositorio.EditarLasMesas(lasMesas);
             return Ok(lasMesas);
         }
     }

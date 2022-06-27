@@ -143,24 +143,6 @@ namespace GestorDeRestaurante.BS
             return resultado;
         }
 
-        public void NoDisponible(Mesas lasMesas)
-        {
-            Model.Mesas laMesaAModificar;
-            laMesaAModificar = ObtenerMesasPorId(lasMesas.Id);
-            laMesaAModificar.Estado = Estado.Nodisponible;
-            ElContextoBD.Mesas.Update(laMesaAModificar);
-            ElContextoBD.SaveChanges();
-        }
-
-        public void Disponible(Mesas lasMesas)
-        {
-            Model.Mesas laMesaAModificar;
-            laMesaAModificar = ObtenerMesasPorId(lasMesas.Id);
-            laMesaAModificar.Estado = Estado.Disponible;
-            ElContextoBD.Mesas.Update(laMesaAModificar);
-            ElContextoBD.SaveChanges();
-        }
-
 
         public List<Platillos> ObtengaLaListaDePlatillos()
         {

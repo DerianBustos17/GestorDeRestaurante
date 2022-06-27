@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<GestorDeRestaurante.Model.Ingredientes>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Ingredientes";
 }
 
-<h1>Index</h1>
+<h1>Ingredientes</h1>
 
 <p>
     <a asp-action="Create">Nuevo ingrediente</a>
@@ -14,6 +14,9 @@
         <tr>
             
             <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+              <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
             <th></th>
@@ -27,9 +30,8 @@
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Editar", "Edit", new {  id = item.Id }) |
+                @Html.ActionLink("Detalles", "Details", new { /* id=item.PrimaryKey */ }) 
             </td>
         </tr>
 }

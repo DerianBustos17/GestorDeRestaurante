@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<GestorDeRestaurante.Model.Mesas>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Ingredientes";
 }
 
-<h1>Index</h1>
+<h1>Ingredientes</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Agregar mesas</a>
 </p>
 <table class="table">
     <thead>
@@ -33,9 +33,10 @@
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id}) |
-                @Html.ActionLink("Details", "Details", new {  id=item.Id }) |
-                @Html.ActionLink("Deshabilitar", "Deshabilitar", new {id=item.Id })
+                @Html.ActionLink("Editar", "Edit", new { id=item.Id}) |
+                @Html.ActionLink("Detalles", "Details", new {  id=item.Id }) |
+                @Html.ActionLink("Deshabilitar", "Deshabilitar", new {id=item.Id })|
+                @Html.ActionLink("Habilitar", "Habilitar", new {id=item.Id })
             </td>
         </tr>
 }
