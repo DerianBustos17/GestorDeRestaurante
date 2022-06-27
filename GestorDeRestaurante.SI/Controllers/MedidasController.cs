@@ -73,6 +73,14 @@ namespace GestorDeRestaurante.SI.Controllers
             }
         }
 
+        // DELETE api/<MedidasController>/5
+        [HttpDelete("Deshabilitar")]
+        public IActionResult Deshabilitar([FromBody] GestorDeRestaurante.Model.Medidas medida)
+        {
 
+            medida = ElRepositorio.ObtenerPorIdLaMedida(medida.Id);
+            ElRepositorio.EditarLaMedida(medida);
+            return Ok(medida);
+        }
     }
 }

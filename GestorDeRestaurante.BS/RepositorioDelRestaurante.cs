@@ -82,7 +82,7 @@ namespace GestorDeRestaurante.BS
 
         public Medidas ObTengalaMedida(string Nombre)
         {
-            Model.Medidas resultado =  null ;
+            Model.Medidas resultado = null;
             List<Model.Medidas> laLista;
 
             laLista = ObtengaLaListaDeMedidas();
@@ -143,6 +143,145 @@ namespace GestorDeRestaurante.BS
             return resultado;
         }
 
+        public void NoDisponible(Mesas lasMesas)
+        {
+            Model.Mesas laMesaAModificar;
+            laMesaAModificar = ObtenerMesasPorId(lasMesas.Id);
+            laMesaAModificar.Estado = Estado.Nodisponible;
+            ElContextoBD.Mesas.Update(laMesaAModificar);
+            ElContextoBD.SaveChanges();
+        }
 
+        public void Disponible(Mesas lasMesas)
+        {
+            Model.Mesas laMesaAModificar;
+            laMesaAModificar = ObtenerMesasPorId(lasMesas.Id);
+            laMesaAModificar.Estado = Estado.Disponible;
+            ElContextoBD.Mesas.Update(laMesaAModificar);
+            ElContextoBD.SaveChanges();
+        }
+
+
+        public List<Platillos> ObtengaLaListaDePlatillos()
+        {
+            var resultado = from c in ElContextoBD.Menu
+                            select c;
+            return resultado.ToList();
+        }
+
+        public void AgregueElPlatillo(Platillos elPlatillo)
+        {
+            ElContextoBD.Menu.Add(elPlatillo);
+            ElContextoBD.SaveChanges();
+        }
+
+
+
+        public MenuCompleto ObtengaElMenuCompleto()
+        {
+            List<Model.Platillos> LaListaDePlatillos;
+            LaListaDePlatillos = ObtengaLaListaDePlatillos();
+
+            Model.MenuCompleto ElMenuCompleto = new Model.MenuCompleto();
+
+            ElMenuCompleto.Entradas = ObtengaLasEntradas();
+            ElMenuCompleto.PlatosPrincipales = ObtengaPlatosPrincipales();
+            ElMenuCompleto.Postres = ObtengaLosPostres();
+            ElMenuCompleto.PequeñasBotanas = ObtengaLasPequenasBotanas();
+            ElMenuCompleto.Aperitivos = ObtengaLosAperitivos();
+            ElMenuCompleto.Bebidas = ObtengasLasBebidas();
+            ElMenuCompleto.SopasYEnsaladas = ObtengaLasSopas();
+
+
+            return ElMenuCompleto;
+        }
+        public List<Platillos> ObtengaLasEntradas()
+        {
+            List<Model.Platillos>? LaListaDePlatillos;
+            List<Model.Platillos>? LaListaDeEntradas= new List<Model.Platillos>();
+            LaListaDePlatillos = ObtengaLaListaDePlatillos();
+
+            LaListaDeEntradas  = LaListaDePlatillos.Where(x => x.Categoria.ToString().Equals("Entrada")).ToList();
+            return LaListaDeEntradas;
+        }
+        public List<Platillos> ObtengaPlatosPrincipales()
+        {
+            List<Model.Platillos>? LaListaDePlatillos;
+            List<Model.Platillos>? LaListaDeEntradas = new List<Model.Platillos>();
+            LaListaDePlatillos = ObtengaLaListaDePlatillos();
+
+            LaListaDeEntradas = LaListaDePlatillos.Where(x => x.Categoria.ToString().Equals("PlatosPrincipales")).ToList();
+            return LaListaDeEntradas;
+        }
+        public List<Platillos> ObtengaLosPostres()
+        {
+            List<Model.Platillos>? LaListaDePlatillos;
+            List<Model.Platillos>? LaListaDeEntradas = new List<Model.Platillos>();
+            LaListaDePlatillos = ObtengaLaListaDePlatillos();
+
+            LaListaDeEntradas = LaListaDePlatillos.Where(x => x.Categoria.ToString().Equals("Postres")).ToList();
+            return LaListaDeEntradas;
+        }
+        public List<Platillos> ObtengaLasPequenasBotanas()
+        {
+            List<Model.Platillos>? LaListaDePlatillos;
+            List<Model.Platillos>? LaListaDeEntradas = new List<Model.Platillos>();
+            LaListaDePlatillos = ObtengaLaListaDePlatillos();
+
+            LaListaDeEntradas = LaListaDePlatillos.Where(x => x.Categoria.ToString().Equals("PequeñasBotanas")).ToList();
+            return LaListaDeEntradas;
+        }
+        public List<Platillos> ObtengasLasBebidas()
+        {
+            List<Model.Platillos>? LaListaDePlatillos;
+            List<Model.Platillos>? LaListaDeEntradas = new List<Model.Platillos>();
+            LaListaDePlatillos = ObtengaLaListaDePlatillos();
+
+            LaListaDeEntradas = LaListaDePlatillos.Where(x => x.Categoria.ToString().Equals("Bebidas")).ToList();
+            return LaListaDeEntradas;
+        }
+        public List<Platillos> ObtengaLosAperitivos()
+        {
+            List<Model.Platillos>? LaListaDePlatillos;
+            List<Model.Platillos>? LaListaDeEntradas = new List<Model.Platillos>();
+            LaListaDePlatillos = ObtengaLaListaDePlatillos();
+
+            LaListaDeEntradas = LaListaDePlatillos.Where(x => x.Categoria.ToString().Equals("Aperitivos")).ToList();
+            return LaListaDeEntradas;
+        }
+        public List<Platillos> ObtengaLasSopas()
+        {
+            List<Model.Platillos>? LaListaDePlatillos;
+            List<Model.Platillos>? LaListaDeEntradas = new List<Model.Platillos>();
+            LaListaDePlatillos = ObtengaLaListaDePlatillos();
+
+            LaListaDeEntradas = LaListaDePlatillos.Where(x => x.Categoria.ToString().Equals("SopasYEnsaladas")).ToList();
+            return LaListaDeEntradas;
+        }
+
+        public Platillos ObtenerPlatillosPorId(int? Id)
+        {
+            Model.Platillos resultado;
+
+            resultado = ElContextoBD.Menu.Find(Id);
+
+            return resultado;
+        }
+
+        public void EditarLosPlatilos(Model.Platillos? ElPlatillo)
+        {
+            Model.Platillos ElPlatilloaModificar;
+
+            ElPlatilloaModificar = ObtenerPlatillosPorId(ElPlatillo.id);
+
+            ElPlatilloaModificar.Nombre = ElPlatillo.Nombre;
+
+            ElPlatilloaModificar.Precio = ElPlatillo.Precio;
+            ElPlatilloaModificar.Categoria=ElPlatillo.Categoria;    
+            ElPlatilloaModificar.Imagen = ElPlatillo.Imagen;
+
+            ElContextoBD.Menu.Update(ElPlatilloaModificar);
+            ElContextoBD.SaveChanges();
+        }
     }
 }

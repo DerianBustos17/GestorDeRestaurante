@@ -162,12 +162,9 @@ namespace GestorDeRestaurante.UI.Controllers
 
         public async Task<ActionResult> Deshabilitar(int id)
             {
-
                 Model.Mesas lasMesas = new Model.Mesas();
             lasMesas.Id = id;
-            lasMesas.Nombre = " ";
-            lasMesas.Estado = Model.Estado.Nodisponible;
-            try
+                try
                 {
 
 
@@ -180,7 +177,7 @@ namespace GestorDeRestaurante.UI.Controllers
 
                     byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                    var response = await httpClient.PutAsync("https://localhost:7071/api/Mesas/Deshabilitar" , byteContent);
+                    var response = await httpClient.PutAsync("https://localhost:7071/api/Mesas/Deshabilitar" + id,null);
 
                 }
 
@@ -194,37 +191,21 @@ namespace GestorDeRestaurante.UI.Controllers
                 return RedirectToAction(nameof(Index));
 
             }
-        public async Task<ActionResult> Habilitar(int id)
+        public async Task<ActionResult> Disponible(int id)
         {
-            Model.Mesas lasMesas = new Model.Mesas();
-            lasMesas.Id = id;
-            lasMesas.Nombre = " ";
-            lasMesas.Estado = Model.Estado.Disponible;
             try
             {
-
-
                 var httpClient = new HttpClient();
-                string json = JsonConvert.SerializeObject(lasMesas);
 
-                var buffer = System.Text.Encoding.UTF8.GetBytes(json);
+                await httpClient.PutAsync("https://localhost:7071/api/Mesas/Disponible" + id, null);
 
-                var byteContent = new ByteArrayContent(buffer);
-
-                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await httpClient.PutAsync("https://localhost:7071/api/Mesas/Habilitar", byteContent);
+                return RedirectToAction(nameof(Index));
 
             }
-
-
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                return View();
             }
-
-
-            return RedirectToAction(nameof(Index));
 
         }
 
