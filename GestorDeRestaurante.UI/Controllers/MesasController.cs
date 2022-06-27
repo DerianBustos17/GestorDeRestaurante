@@ -197,7 +197,7 @@ namespace GestorDeRestaurante.UI.Controllers
             {
                 var httpClient = new HttpClient();
 
-                await httpClient.PutAsync("https://localhost:7071/api/Mesas/Disponible" + id, null);
+                await httpClient.PutAsync("https://localhost:7071/api/Mesas/Disponible", null);
 
                 return RedirectToAction(nameof(Index));
 
