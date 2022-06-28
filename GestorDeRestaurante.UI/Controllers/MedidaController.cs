@@ -177,45 +177,8 @@ namespace GestorDeRestaurante.UI.Controllers
             }
         }
 
-        // GET: MedidasController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
-        // POST: MedidasController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Deshabilitar(int id)
-        {
-            Model.Medidas laMedida = new Model.Medidas();
-            laMedida.Id = id;
-            try
-            {
-
-
-                var httpClient = new HttpClient();
-                string json = JsonConvert.SerializeObject(laMedida);
-
-                var buffer = System.Text.Encoding.UTF8.GetBytes(json);
-
-                var byteContent = new ByteArrayContent(buffer);
-
-                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await httpClient.PutAsync("https://localhost:7071/api/Medidas/Deshabilitar", byteContent);
-
-            }
-
-
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-
-            return RedirectToAction(nameof(Index));
-        }
+      
     }
 
 }
