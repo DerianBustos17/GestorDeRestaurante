@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GestorDeRestaurante.Model.Platillos>
+﻿@model IEnumerable<GestorDeRestaurante.Model.Menu>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,7 +16,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.id)
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
@@ -37,7 +37,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.id)
+                @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
@@ -59,8 +59,8 @@
 
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new {id=item.id }) |
-                @Html.ActionLink("Detalles", "Details", new { id=item.id }) |
+                @Html.ActionLink("Editar", "Edit", new {id=item.Id }) |
+                @Html.ActionLink("Detalles", "Details", new { id=item.Id }) |
               
             </td>
         </tr>

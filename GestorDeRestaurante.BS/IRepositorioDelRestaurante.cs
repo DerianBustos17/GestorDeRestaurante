@@ -14,8 +14,6 @@ namespace GestorDeRestaurante.BS
         Model.Ingredientes ObtenerIngredientePorId(int Id);
 
 
-
-
         List<Model.Medidas> ObtengaLaListaDeMedidas();
         Model.Medidas ObTengalaMedida(string Nombre);
         List<Model.Medidas> ObTengaLasMedidasPorNombre(string nombre);
@@ -23,23 +21,24 @@ namespace GestorDeRestaurante.BS
         void AgregueLaMedida(Model.Medidas medida);
         void EditarLaMedida(Model.Medidas medida);
 
+
         List<Model.Mesas> ObtengaLaListaDeMesas();
         void AgregueLasMesas(Model.Mesas lasMesas);
         void EditarLasMesas(Model.Mesas lasMesas);
         Model.Mesas ObtenerMesasPorId(int Id);
 
 
-        List<Model.Platillos> ObtengaLaListaDePlatillos();
-        void AgregueElPlatillo(Model.Platillos elPlatillo);
+        List<Model.Menu> ObtengaLaListaDePlatillos();
+        void AgregueElPlatillo(Model.Menu elPlatillo);
         Model.MenuCompleto ObtengaElMenuCompleto();
-        Model.Platillos ObtenerPlatillosPorId(int? Id);
-        void EditarLosPlatilos(Model.Platillos ElPlatillo);
+        Model.Menu ObtenerPlatillosPorId(int? Id);
+        void EditarLosPlatilos(Model.Menu ElPlatillo);
 
 
         List<Model.MesaOrden> ObtengaLaListaDeOrdenes();
 
 
-        List<Model.PlatilloIngredientes> ObtengaLaListaDelMenuParaIngredientes(List<Model.Platillos> losPlatillos, List<Model.MesaOrden> lasOrdenes);
+        List<Model.PlatilloIngredientes> ObtengaLaListaDelMenuParaIngredientes(List<Model.Menu> losPlatillos, List<Model.MesaOrden> lasOrdenes);
 
     }
 }

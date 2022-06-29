@@ -8,14 +8,14 @@ namespace GestorDeRestaurante.Model
 {
     public class MenuCompleto
     {
-        public List<Platillos>? Entradas { get; set; }
+        public List<Menu>? Entradas { get; set; }
 
-        public List<Platillos>? PequeñasBotanas { get; set; }
-        public List<Platillos>? Aperitivos { get; set; }
-        public List<Platillos>? SopasYEnsaladas { get; set; }
-        public List<Platillos>? PlatosPrincipales { get; set; }
-        public List<Platillos>? Postres { get; set; }
-        public List<Platillos>? Bebidas { get; set; }
+        public List<Menu>? PequeñasBotanas { get; set; }
+        public List<Menu>? Aperitivos { get; set; }
+        public List<Menu>? SopasYEnsaladas { get; set; }
+        public List<Menu>? PlatosPrincipales { get; set; }
+        public List<Menu>? Postres { get; set; }
+        public List<Menu>? Bebidas { get; set; }
 
     }
 }

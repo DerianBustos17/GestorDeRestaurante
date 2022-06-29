@@ -11,14 +11,14 @@ namespace GestorDeRestaurante.UI.Controllers
         // GET: PlatilloController
         public async Task<IActionResult> Index()
         {
-            List<Model.Platillos> laLista;
+            List<Model.Menu> laLista;
             try
             {
                 var httpClient = new HttpClient();
 
                 var response = await httpClient.GetAsync("https://localhost:7071/api/Platillos/ObtengaLaListaDePlatillos");
                 string apiResponse = await response.Content.ReadAsStringAsync();
-                laLista = JsonConvert.DeserializeObject<List<GestorDeRestaurante.Model.Platillos>>(apiResponse);
+                laLista = JsonConvert.DeserializeObject<List<GestorDeRestaurante.Model.Menu>>(apiResponse);
 
             }
             catch (Exception ex)
@@ -31,7 +31,7 @@ namespace GestorDeRestaurante.UI.Controllers
         // GET: PlatilloController/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            Model.Platillos ELPlatillo;
+            Model.Menu ELPlatillo;
 
             try
 
@@ -46,7 +46,7 @@ namespace GestorDeRestaurante.UI.Controllers
                 var uri = QueryHelpers.AddQueryString("https://localhost:7071/api/Platillos/ObtengaPlatillosPorId", query);
                 var response = await httpClient.GetAsync(uri);
                 string apiResponse = await response.Content.ReadAsStringAsync();
-                ELPlatillo = JsonConvert.DeserializeObject<GestorDeRestaurante.Model.Platillos>(apiResponse);
+                ELPlatillo = JsonConvert.DeserializeObject<GestorDeRestaurante.Model.Menu>(apiResponse);
             }
             catch (Exception ex)
             {
@@ -65,11 +65,11 @@ namespace GestorDeRestaurante.UI.Controllers
         // POST: PlatilloController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Model.Platillos Platillo)
+        public async Task<ActionResult> Create(Model.Menu Platillo)
         {    
             try
             {
-                GestorDeRestaurante.Model.Platillos elPlatillo = new Model.Platillos();
+                GestorDeRestaurante.Model.Menu elPlatillo = new Model.Menu();
                 var files = HttpContext.Request.Form.Files;
                 if (files.Count>0)
                 {
@@ -117,7 +117,7 @@ namespace GestorDeRestaurante.UI.Controllers
         // GET: PlatilloController/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            Model.Platillos ELPlatillo;
+            Model.Menu ELPlatillo;
 
             try
 
@@ -133,7 +133,7 @@ namespace GestorDeRestaurante.UI.Controllers
                 var uri = QueryHelpers.AddQueryString("https://localhost:7071/api/Platillos/ObtengaPlatillosPorId", query);
                 var response = await httpClient.GetAsync(uri);
                 string apiResponse = await response.Content.ReadAsStringAsync();
-                ELPlatillo = JsonConvert.DeserializeObject<GestorDeRestaurante.Model.Platillos>(apiResponse);
+                ELPlatillo = JsonConvert.DeserializeObject<GestorDeRestaurante.Model.Menu>(apiResponse);
             }
             catch (Exception ex)
             {
@@ -146,11 +146,11 @@ namespace GestorDeRestaurante.UI.Controllers
         // POST: PlatilloController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Model.Platillos Platillo)
+        public async Task<IActionResult> Edit(Model.Menu Platillo)
         {
             try
             {
-                GestorDeRestaurante.Model.Platillos elPlatillo = new Model.Platillos();
+                GestorDeRestaurante.Model.Menu elPlatillo = new Model.Menu();
                 var files = HttpContext.Request.Form.Files;
                 if (files.Count > 0)
                 {
@@ -166,7 +166,7 @@ namespace GestorDeRestaurante.UI.Controllers
 
                     }
                     elPlatillo.Nombre = Platillo.Nombre;
-                    elPlatillo.id = Platillo.id;
+                    elPlatillo.Id = Platillo.Id;
                     elPlatillo.Precio = Platillo.Precio;
                     elPlatillo.Categoria = Platillo.Categoria;
                     elPlatillo.Imagen = p1;

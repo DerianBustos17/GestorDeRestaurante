@@ -18,9 +18,9 @@ namespace GestorDeRestaurante.SI.Controllers
         // GET: api/<PlatillosController>
 
         [HttpGet("ObtengaLaListaDePlatillos")]
-        public IEnumerable<GestorDeRestaurante.Model.Platillos> ObtengaLaListaDePlatillos()
+        public IEnumerable<GestorDeRestaurante.Model.Menu> ObtengaLaListaDePlatillos()
         {
-            List<Model.Platillos> elResultado;
+            List<Model.Menu> elResultado;
             elResultado = ElRepositorio.ObtengaLaListaDePlatillos();
             return elResultado;
         }
@@ -37,7 +37,7 @@ namespace GestorDeRestaurante.SI.Controllers
 
         // POST api/<PlatillosController>
         [HttpPost("IngresePlatillo")]
-        public IActionResult Post([FromBody] GestorDeRestaurante.Model.Platillos platillos)
+        public IActionResult Post([FromBody] GestorDeRestaurante.Model.Menu platillos)
         {
             if (ModelState.IsValid)
             {
@@ -53,16 +53,16 @@ namespace GestorDeRestaurante.SI.Controllers
 
         // PUT api/<PlatillosController>/5
         [HttpGet("ObtengaPlatillosPorId")]
-        public GestorDeRestaurante.Model.Platillos ObtengaPlatillosPorId(int id)
+        public GestorDeRestaurante.Model.Menu ObtengaPlatillosPorId(int id)
         {
-            Model.Platillos elResultado;
+            Model.Menu elResultado;
             elResultado = ElRepositorio.ObtenerPlatillosPorId(id);
             return elResultado;
         }
 
 
         [HttpPut("EditarPlatillo")]
-        public IActionResult Put([FromBody] GestorDeRestaurante.Model.Platillos ElPlatillo)
+        public IActionResult Put([FromBody] GestorDeRestaurante.Model.Menu ElPlatillo)
         {
 
             if (ModelState.IsValid)

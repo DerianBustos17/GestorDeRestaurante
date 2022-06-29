@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GestorDeRestaurante.Model
 {
-    public class Platillos
+    public class Menu
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public String Nombre { get; set; }
         public Categoria Categoria { get; set; }
         public double Precio { get; set; }
