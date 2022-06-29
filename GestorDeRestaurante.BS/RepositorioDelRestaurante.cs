@@ -230,13 +230,13 @@ namespace GestorDeRestaurante.BS
 
 
 
-        public List<PlatilloIngredientes> ObtengaLaListaDelMenuParaIngredientes(List<Menu> losPlatillos, List<MesaOrden> lasOrdenes)
+        public List<MenuIngredientes> ObtengaLaListaDelMenuParaIngredientes(List<Menu> losPlatillos, List<MesaOrden> lasOrdenes)
         {
-            List<Model.PlatilloIngredientes> elResultado = new List<Model.PlatilloIngredientes>();
+            List<Model.MenuIngredientes> elResultado = new List<Model.MenuIngredientes>();
 
             foreach (Model.Menu platillo in losPlatillos)
             {
-                Model.PlatilloIngredientes elPlatilloParaIngredientes = new Model.PlatilloIngredientes();
+                Model.MenuIngredientes elPlatilloParaIngredientes = new Model.MenuIngredientes();
 
                 elPlatilloParaIngredientes.Id = platillo.Id;
                 elPlatilloParaIngredientes.Nombre = platillo.Nombre;

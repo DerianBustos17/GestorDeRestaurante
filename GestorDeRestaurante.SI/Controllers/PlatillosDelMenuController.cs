@@ -8,41 +8,74 @@ namespace GestorDeRestaurante.SI.Controllers
     [ApiController]
     public class PlatillosDelMenuController : ControllerBase
     {
+
         private readonly BS.IRepositorioDelRestaurante ElRepositorio;
 
         public PlatillosDelMenuController(BS.IRepositorioDelRestaurante repositorio)
         {
             ElRepositorio = repositorio;
         }
+        // GET: api/<PlatillosController>
 
-
-        // GET: api/<PlatillosDelMenuController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("ObtengaLaListaDePlatillos")]
+        public IEnumerable<GestorDeRestaurante.Model.Menu> ObtengaLaListaDePlatillos()
         {
-            return new string[] { "value1", "value2" };
+            List<Model.Menu> elResultado;
+            elResultado = ElRepositorio.ObtengaLaListaDePlatillos();
+            return elResultado;
         }
 
-        // GET api/<PlatillosDelMenuController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET api/<PlatillosController>/5
+        [HttpGet("ObtengaElMenuCompleto")]
+        public Model.MenuCompleto ObtengaElMenuCompleto()
         {
-            return "value";
+            Model.MenuCompleto ElMenuCompleto;
+            ElMenuCompleto = ElRepositorio.ObtengaElMenuCompleto();
+
+            return ElMenuCompleto;
         }
 
-        // POST api/<PlatillosDelMenuController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        // POST api/<PlatillosController>
+        [HttpPost("IngresePlatillo")]
+        public IActionResult Post([FromBody] GestorDeRestaurante.Model.Menu platillos)
         {
+            if (ModelState.IsValid)
+            {
+                ElRepositorio.AgregueElPlatillo(platillos);
+                return Ok(platillos);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+
         }
 
-        // PUT api/<PlatillosDelMenuController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/<PlatillosController>/5
+        [HttpGet("ObtengaPlatillosPorId")]
+        public GestorDeRestaurante.Model.Menu ObtengaPlatillosPorId(int id)
         {
+            Model.Menu elResultado;
+            elResultado = ElRepositorio.ObtenerPlatillosPorId(id);
+            return elResultado;
         }
 
-        // DELETE api/<PlatillosDelMenuController>/5
+
+        [HttpPut("EditarPlatillo")]
+        public IActionResult Put([FromBody] GestorDeRestaurante.Model.Menu ElPlatillo)
+        {
+
+            if (ModelState.IsValid)
+            {
+                ElRepositorio.EditarLosPlatilos(ElPlatillo);
+                return Ok(ElPlatillo);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
+        // DELETE api/<PlatillosController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

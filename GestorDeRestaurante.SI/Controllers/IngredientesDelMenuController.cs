@@ -17,9 +17,9 @@ namespace GestorDeRestaurante.SI.Controllers
 
         // GET: api/<IngredientesDelMenuController>
         [HttpGet("ObtengaLaListaDelMenuParaIngredientes")]
-        public IEnumerable<GestorDeRestaurante.Model.PlatilloIngredientes> ObtengaLaListaDelMenuParaIngredientes()
+        public IEnumerable<GestorDeRestaurante.Model.MenuIngredientes> ObtengaLaListaDelMenuParaIngredientes()
         {
-            List<Model.PlatilloIngredientes> elResultado;
+            List<Model.MenuIngredientes> elResultado;
             List<Model.Menu> laListaDelMenu;
             List<Model.MesaOrden> laListaDeOrdenes;
 

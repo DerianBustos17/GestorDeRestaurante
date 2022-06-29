@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace GestorDeRestaurante.UI.Controllers
 {
@@ -8,7 +9,21 @@ namespace GestorDeRestaurante.UI.Controllers
         // GET: IngredienteDelMenuController
         public async Task<IActionResult> Index()
         {
-            return View();
+            List<Model.MenuIngredientes> laLista;
+            try
+            {
+                var httpClient = new HttpClient();
+
+                var response = await httpClient.GetAsync("https://localhost:7071/api/IngredientesDelMenu/ObtengaLaListaDelMenuParaIngredientes");
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                laLista = JsonConvert.DeserializeObject<List<GestorDeRestaurante.Model.MenuIngredientes>>(apiResponse);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return View(laLista);
         }
 
         // GET: IngredienteDelMenuController/Details/5

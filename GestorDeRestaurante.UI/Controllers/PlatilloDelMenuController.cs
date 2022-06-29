@@ -6,7 +6,7 @@ using System.Net.Http.Headers;
 
 namespace GestorDeRestaurante.UI.Controllers
 {
-    public class PlatilloController : Controller
+    public class PlatilloDelMenuController : Controller
     {
         // GET: PlatilloController
         public async Task<IActionResult> Index()
@@ -16,7 +16,7 @@ namespace GestorDeRestaurante.UI.Controllers
             {
                 var httpClient = new HttpClient();
 
-                var response = await httpClient.GetAsync("https://localhost:7071/api/Platillos/ObtengaLaListaDePlatillos");
+                var response = await httpClient.GetAsync("https://localhost:7071/api/PlatillosDelMenu/ObtengaLaListaDePlatillos");
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 laLista = JsonConvert.DeserializeObject<List<GestorDeRestaurante.Model.Menu>>(apiResponse);
 
@@ -43,7 +43,7 @@ namespace GestorDeRestaurante.UI.Controllers
                     ["id"] = id.ToString()
                 };
 
-                var uri = QueryHelpers.AddQueryString("https://localhost:7071/api/Platillos/ObtengaPlatillosPorId", query);
+                var uri = QueryHelpers.AddQueryString("https://localhost:7071/api/PlatillosDelMenu/ObtengaPlatillosPorId", query);
                 var response = await httpClient.GetAsync(uri);
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 ELPlatillo = JsonConvert.DeserializeObject<GestorDeRestaurante.Model.Menu>(apiResponse);
@@ -103,7 +103,7 @@ namespace GestorDeRestaurante.UI.Controllers
 
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                await httpClient.PostAsync("https://localhost:7071/api/Platillos/IngresePlatillo", byteContent);
+                await httpClient.PostAsync("https://localhost:7071/api/PlatillosDelMenu/IngresePlatillo", byteContent);
 
 
                 return RedirectToAction(nameof(Index));
@@ -130,7 +130,7 @@ namespace GestorDeRestaurante.UI.Controllers
                     ["id"] = id.ToString()
                 };
 
-                var uri = QueryHelpers.AddQueryString("https://localhost:7071/api/Platillos/ObtengaPlatillosPorId", query);
+                var uri = QueryHelpers.AddQueryString("https://localhost:7071/api/PlatillosDelMenu/ObtengaPlatillosPorId", query);
                 var response = await httpClient.GetAsync(uri);
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 ELPlatillo = JsonConvert.DeserializeObject<GestorDeRestaurante.Model.Menu>(apiResponse);
@@ -184,7 +184,7 @@ namespace GestorDeRestaurante.UI.Controllers
 
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                await httpClient.PutAsync("https://localhost:7071/api/Platillos/EditarPlatillo", byteContent);
+                await httpClient.PutAsync("https://localhost:7071/api/PlatillosDelMenu/EditarPlatillo", byteContent);
 
 
 
@@ -206,7 +206,7 @@ namespace GestorDeRestaurante.UI.Controllers
             {
                 var httpClient = new HttpClient();
 
-                var response = await httpClient.GetAsync("https://localhost:7071/api/Platillos/ObtengaElMenuCompleto");
+                var response = await httpClient.GetAsync("https://localhost:7071/api/PlatillosDelMenu/ObtengaElMenuCompleto");
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 ElMenuCompleto = JsonConvert.DeserializeObject<Model.MenuCompleto>(apiResponse);
             }
