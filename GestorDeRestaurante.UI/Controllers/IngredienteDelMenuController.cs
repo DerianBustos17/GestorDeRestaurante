@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 
 namespace GestorDeRestaurante.UI.Controllers
@@ -9,14 +10,15 @@ namespace GestorDeRestaurante.UI.Controllers
         // GET: IngredienteDelMenuController
         public async Task<IActionResult> Index()
         {
-            List<Model.MenuIngredientes> laLista;
+            List<Model.Platillos> laLista;
+
             try
             {
                 var httpClient = new HttpClient();
 
-                var response = await httpClient.GetAsync("https://localhost:7071/api/IngredientesDelMenu/ObtengaLaListaDelMenuParaIngredientes");
+                var response = await httpClient.GetAsync("https://localhost:7071/api/IngredientesDelMenu/ObtengaElMenuParaAdministrarLosIngredientes");
                 string apiResponse = await response.Content.ReadAsStringAsync();
-                laLista = JsonConvert.DeserializeObject<List<GestorDeRestaurante.Model.MenuIngredientes>>(apiResponse);
+                laLista = JsonConvert.DeserializeObject<List<GestorDeRestaurante.Model.Platillos>>(apiResponse);
 
             }
             catch (Exception ex)
@@ -26,10 +28,31 @@ namespace GestorDeRestaurante.UI.Controllers
             return View(laLista);
         }
 
+
+
         // GET: IngredienteDelMenuController/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> IngredientesDeUnPlatillo(int id)
         {
-            return View();
+            List<Model.IngredienteDelPlatillo> laLista;
+
+            try
+            {
+                var httpClient = new HttpClient();
+                var query = new Dictionary<string, string>()
+                {
+                    ["id"] = id.ToString()
+                };
+
+                var uri = QueryHelpers.AddQueryString("https://localhost:7071/api/IngredientesDelMenu/ObtengaLaListaDeIngredientesDeUnPlatilloPorId", query);
+                var response = await httpClient.GetAsync(uri);
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                laLista = JsonConvert.DeserializeObject<List<GestorDeRestaurante.Model.IngredienteDelPlatillo>>(apiResponse);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return View(laLista);
         }
 
         // GET: IngredienteDelMenuController/Create

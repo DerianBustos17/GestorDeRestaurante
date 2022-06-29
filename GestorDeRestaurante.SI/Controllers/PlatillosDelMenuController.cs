@@ -15,7 +15,7 @@ namespace GestorDeRestaurante.SI.Controllers
         {
             ElRepositorio = repositorio;
         }
-        // GET: api/<PlatillosController>
+        // GET: api/<PlatillosDelMenusController>
 
         [HttpGet("ObtengaLaListaDePlatillos")]
         public IEnumerable<GestorDeRestaurante.Model.Menu> ObtengaLaListaDePlatillos()
@@ -25,7 +25,7 @@ namespace GestorDeRestaurante.SI.Controllers
             return elResultado;
         }
 
-        // GET api/<PlatillosController>/5
+        // GET api/<PlatillosDelMenusController>/5
         [HttpGet("ObtengaElMenuCompleto")]
         public Model.MenuCompleto ObtengaElMenuCompleto()
         {
@@ -35,7 +35,7 @@ namespace GestorDeRestaurante.SI.Controllers
             return ElMenuCompleto;
         }
 
-        // POST api/<PlatillosController>
+        // POST api/<PlatillosDelMenusController>
         [HttpPost("IngresePlatillo")]
         public IActionResult Post([FromBody] GestorDeRestaurante.Model.Menu platillos)
         {
@@ -51,7 +51,7 @@ namespace GestorDeRestaurante.SI.Controllers
 
         }
 
-        // PUT api/<PlatillosController>/5
+        // PUT api/<PlatillosDelMenusController>/5
         [HttpGet("ObtengaPlatillosPorId")]
         public GestorDeRestaurante.Model.Menu ObtengaPlatillosPorId(int id)
         {
@@ -75,7 +75,7 @@ namespace GestorDeRestaurante.SI.Controllers
                 return BadRequest(ModelState);
             }
         }
-        // DELETE api/<PlatillosController>/5
+        // DELETE api/<PlatillosDelMenusController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

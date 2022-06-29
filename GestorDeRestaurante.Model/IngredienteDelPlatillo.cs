@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GestorDeRestaurante.Model
 {
-    public class MenuIngredientes
+    public class IngredienteDelPlatillo
     {
         public int Id { get; set; }
 
@@ -20,6 +20,11 @@ namespace GestorDeRestaurante.Model
 
         public int ValorAproximado { get; set; }
 
+        public string Nombre { get; set; }
 
+        
+        public string NombreDeLaMedida { get; set; }
+
+        
     }
 }

@@ -16,10 +16,10 @@ namespace GestorDeRestaurante.SI.Controllers
         }
 
         // GET: api/<IngredientesDelMenuController>
-        [HttpGet("ObtengaLaListaDelMenuParaIngredientes")]
-        public IEnumerable<GestorDeRestaurante.Model.MenuIngredientes> ObtengaLaListaDelMenuParaIngredientes()
+        [HttpGet("ObtengaElMenuParaAdministrarLosIngredientes")]
+        public IEnumerable<GestorDeRestaurante.Model.Platillos> ObtengaElMenuParaAdministrarLosIngredientes()
         {
-            List<Model.MenuIngredientes> elResultado;
+            List<Model.Platillos> elResultado;
             List<Model.Menu> laListaDelMenu;
             List<Model.MesaOrden> laListaDeOrdenes;
 
@@ -32,10 +32,14 @@ namespace GestorDeRestaurante.SI.Controllers
         }
 
         // GET api/<IngredientesDelMenuController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("ObtengaLaListaDeIngredientesDeUnPlatilloPorId")]
+        public IEnumerable<GestorDeRestaurante.Model.IngredienteDelPlatillo> ObtengaLaListaDeIngredientesDeUnPlatilloPorId(int id)
         {
-            return "value";
+            List<Model.IngredienteDelPlatillo> elResultado;
+
+            elResultado = ElRepositorio.ObtengaLaListaDeIngredientesDeUnPlatilloPorId(id);
+
+            return elResultado;
         }
 
         // POST api/<IngredientesDelMenuController>

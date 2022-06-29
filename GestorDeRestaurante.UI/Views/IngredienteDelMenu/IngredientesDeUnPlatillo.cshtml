@@ -1,0 +1,52 @@
+﻿@model IEnumerable<GestorDeRestaurante.Model.IngredienteDelPlatillo>
+
+@{
+    ViewData["Title"] = "Lista de ingredientes";
+}
+
+<h1>Lista de ingredientes de un platillo </h1>
+
+<p>
+    <a asp-action="Create">Asociar</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreDeLaMedida)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorAproximado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreDeLaMedida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cantidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorAproximado)
+            </td>
+            
+            <td>
+                @Html.ActionLink("Desasociar", "Edit", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

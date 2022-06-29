@@ -27,6 +27,8 @@ namespace GestorDeRestaurante.DA
 
         public DbSet<GestorDeRestaurante.Model.MesaOrden> MesaOrden { get; set; }
 
+        public DbSet<GestorDeRestaurante.Model.MenuIngredientes> MenuIngredientes { get; set; }
+
 
 
     }

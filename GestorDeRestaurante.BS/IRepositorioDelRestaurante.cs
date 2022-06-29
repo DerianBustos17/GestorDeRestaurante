@@ -38,7 +38,8 @@ namespace GestorDeRestaurante.BS
         List<Model.MesaOrden> ObtengaLaListaDeOrdenes();
 
 
-        List<Model.MenuIngredientes> ObtengaLaListaDelMenuParaIngredientes(List<Model.Menu> losPlatillos, List<Model.MesaOrden> lasOrdenes);
-
+        List<Model.Platillos> ObtengaLaListaDelMenuParaIngredientes(List<Model.Menu> losPlatillos, List<Model.MesaOrden> lasOrdenes);
+        
+        List<Model.IngredienteDelPlatillo> ObtengaLaListaDeIngredientesDeUnPlatilloPorId(int id);
     }
 }
