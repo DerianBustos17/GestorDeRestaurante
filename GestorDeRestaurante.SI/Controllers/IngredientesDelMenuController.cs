@@ -16,10 +16,19 @@ namespace GestorDeRestaurante.SI.Controllers
         }
 
         // GET: api/<IngredientesDelMenuController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("ObtengaLaListaDelMenuParaIngresientes")]
+        public IEnumerable<GestorDeRestaurante.Model.PlatilloIngredientes> ObtengaLaListaDelMenuParaIngresientes()
         {
-            return new string[] { "value1", "value2" };
+            List<Model.PlatilloIngredientes> elResultado;
+            List<Model.Platillos> laListaDelMenu;
+            List<Model.MesaOrden> laListaDeOrdenes;
+
+            laListaDelMenu = ElRepositorio.ObtengaLaListaDePlatillos();
+            laListaDeOrdenes = ElRepositorio.ObtengaLaListaDeOrdenes();
+
+            elResultado = ElRepositorio.ObtengaLaListaDelMenuParaIngredientes(laListaDelMenu, laListaDeOrdenes);
+
+            return elResultado;
         }
 
         // GET api/<IngredientesDelMenuController>/5

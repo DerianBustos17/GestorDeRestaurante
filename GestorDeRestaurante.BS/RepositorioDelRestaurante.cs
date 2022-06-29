@@ -151,6 +151,14 @@ namespace GestorDeRestaurante.BS
             return resultado.ToList();
         }
 
+
+        public List<MesaOrden> ObtengaLaListaDeOrdenes()
+        {
+            var resultado = from c in ElContextoBD.MesaOrden
+                            select c;
+            return resultado.ToList();
+        }
+
         public void AgregueElPlatillo(Platillos elPlatillo)
         {
             ElContextoBD.Menu.Add(elPlatillo);
@@ -264,6 +272,29 @@ namespace GestorDeRestaurante.BS
 
             ElContextoBD.Menu.Update(ElPlatilloaModificar);
             ElContextoBD.SaveChanges();
+        }
+
+        public List<PlatilloIngredientes> ObtengaLaListaDelMenuParaIngredientes(List<Platillos> losPlatillos, List<MesaOrden> lasOrdenes)
+        {
+            List <Model.PlatilloIngredientes> elResultado = new List<Model.PlatilloIngredientes>();
+
+            foreach (Model.Platillos platillo in losPlatillos)
+            {
+                Model.PlatilloIngredientes elPlatilloParaIngredientes = new Model.PlatilloIngredientes();
+
+                elPlatilloParaIngredientes.Id = platillo.id;
+                elPlatilloParaIngredientes.Nombre = platillo.Nombre;    
+                elPlatilloParaIngredientes.Precio = platillo.Precio;
+
+                foreach (Model.MesaOrden orden in lasOrdenes)
+                {
+                    if (orden.Id_Menu == platillo.id)
+                        elPlatilloParaIngredientes.GananciaAproximada += platillo.Precio * orden.Cantidad;         
+                }
+                elResultado.Add(elPlatilloParaIngredientes);
+            }
+     
+            return elResultado;
         }
     }
 }

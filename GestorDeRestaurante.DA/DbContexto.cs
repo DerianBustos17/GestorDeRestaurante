@@ -25,6 +25,8 @@ namespace GestorDeRestaurante.DA
 
         public DbSet<GestorDeRestaurante.Model.Mesas> Mesas { get; set; }
 
+        public DbSet<GestorDeRestaurante.Model.MesaOrden> MesaOrden { get; set; }
+
 
 
     }

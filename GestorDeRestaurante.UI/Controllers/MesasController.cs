@@ -165,7 +165,7 @@ namespace GestorDeRestaurante.UI.Controllers
             Model.Mesas lasMesas = new Model.Mesas();
             lasMesas.Id = id;
             lasMesas.Nombre = "";
-            lasMesas.Estado = Model.Estado.Nodisponible;
+            lasMesas.Estado = Model.Estado.NoDisponible;
                 try
                 {
 

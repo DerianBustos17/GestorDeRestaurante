@@ -8,7 +8,7 @@ namespace GestorDeRestaurante.Model
 {
     public enum EstadoDeOrdenes
     {
-        Solicitada = 1,
+        Solicitadas = 1,
         Servidas = 2
     }
 }

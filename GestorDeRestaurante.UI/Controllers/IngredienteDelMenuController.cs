@@ -6,7 +6,7 @@ namespace GestorDeRestaurante.UI.Controllers
     public class IngredienteDelMenuController : Controller
     {
         // GET: IngredienteDelMenuController
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return View();
         }

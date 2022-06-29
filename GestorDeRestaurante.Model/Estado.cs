@@ -11,6 +11,6 @@ namespace GestorDeRestaurante.Model
     {
         Disponible = 1,
         [Display(Name = "No disponible")]
-        Nodisponible = 2
+        NoDisponible = 2
     }
 }

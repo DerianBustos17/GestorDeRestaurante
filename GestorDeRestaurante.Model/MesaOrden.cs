@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GestorDeRestaurante.Model
 {
-    public  class Ordenes
+    public  class MesaOrden
     {
         public int Id { get; set; }
 
@@ -16,6 +16,6 @@ namespace GestorDeRestaurante.Model
 
         public int Cantidad { get; set; }
 
-
+        public EstadoDeOrdenes Estado { get; set; }
     }
 }
