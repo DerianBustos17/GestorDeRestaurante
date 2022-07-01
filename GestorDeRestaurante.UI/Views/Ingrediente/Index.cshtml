@@ -3,11 +3,13 @@
 @{
     ViewData["Title"] = "Ingredientes";
 }
+<center>
+    <h1> <i><p style="color:#900C3F";>Catálogo de Ingredientes</p></i></h1>
+</center>
 
-<h1>Ingredientes</h1>
 
 <p>
-    <a asp-action="Create">Nuevo ingrediente</a>
+    <a asp-action="Create">Ingresar</a>
 </p>
 <table class="table">
     <thead>
@@ -25,7 +27,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            
+               <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
