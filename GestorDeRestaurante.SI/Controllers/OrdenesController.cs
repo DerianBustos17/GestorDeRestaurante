@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,24 +16,79 @@ namespace GestorDeRestaurante.SI.Controllers
             ElRepositorio = repositorio;
         }
 
-        // GET: api/<OrdenesController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+
+        // GET api/<OrdenesController>/5
+        [HttpGet("ObtengaLasMesasDeOrdenes")]
+        public Model.MesasOrdenes ObtengaLasMesasDeOrdenes()
         {
-            return new string[] { "value1", "value2" };
+            Model.MesasOrdenes lasMesas;
+            lasMesas = ElRepositorio.ObtengaLasMesasDeOrdenes();
+
+            return lasMesas;
         }
 
         // GET api/<OrdenesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("ObtengaLosPlatillos")]
+        public IEnumerable<GestorDeRestaurante.Model.Menu> ObtengaLoslatillos()
         {
-            return "value";
+            List<Model.Menu> elResultado;
+            elResultado = ElRepositorio.ObtengaLaListaDePlatillos();
+            return elResultado;
         }
 
-        // POST api/<OrdenesController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        // POST api/<MesasController>
+        [HttpPost("IngreseLaOrden")]
+        public IActionResult Post([FromBody] GestorDeRestaurante.Model.MesaOrden lasOrdenes)
         {
+
+            if (ModelState.IsValid)
+            {
+                ElRepositorio.AgregarUnaOrden(lasOrdenes);
+                return Ok(lasOrdenes);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+
+        }
+
+        // GET: api/<MesasController>
+        [HttpGet("ObtenerUnaOrden")]
+        public GestorDeRestaurante.Model.MesaOrden ObtenerUnaOrden(int id)
+        {
+            Model.MesaOrden elResultado;
+            elResultado = ElRepositorio.ObtenerUnaOrden();
+            return elResultado;
+        }
+
+        [HttpGet("{id}")]
+        public GestorDeRestaurante.Model.Mesas Get(int id)
+        {
+            Model.Mesas lasMesa = new Model.Mesas();
+            lasMesa.Id = id;
+            lasMesa.PlatillosAsociadosALaMesa = ElRepositorio.ObtengaLosPlatillosAsociadosAUnaMesa(id);
+
+            return lasMesa;
+        }
+
+
+
+
+
+        // POST api/<OrdenesController>
+        [HttpPut("SeleccionarPlatillo")]
+        public IActionResult SeleccionarPlatillo([FromBody] GestorDeRestaurante.Model.MesaOrden laOrden)
+        {
+            if (ModelState.IsValid)
+            {
+                ElRepositorio.CambieEstadoDeOrden(laOrden);
+                return Ok(laOrden);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         // PUT api/<OrdenesController>/5

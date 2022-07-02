@@ -411,5 +411,134 @@ namespace GestorDeRestaurante.BS
             return LaListaDeEntradas;
         }
 
+
+        public MesasOrdenes ObtengaLasMesasDeOrdenes()
+        {
+            Model.MesasOrdenes lasMesasDeOrdenes = new Model.MesasOrdenes();
+
+            lasMesasDeOrdenes.MesasNumero1 = ObtengaLasListaDeMesasNumero1();
+            lasMesasDeOrdenes.MesasNumero2 = ObtengaLaListaDeMesasNumero2();
+
+            return lasMesasDeOrdenes;
+        }
+
+        public List<Mesas> ObtengaLasListaDeMesasNumero1()
+        {
+            List<Model.Mesas>? LaListaDeMesas;
+            List<Model.Mesas>? LalistaDeMesasFiltrada = new List<Model.Mesas>();
+            LaListaDeMesas = ObtengaLaListaDeMesas();
+
+            for (int i = 0; i <= (LaListaDeMesas.Count() - 1); i++)
+            {
+                if (ValideSiMesaEstaAsociadaAUnaOrden(LaListaDeMesas[i].Id) == true)
+                {
+
+                    LaListaDeMesas[i].estadoDeLaMesa = EstadoDeLaMesa.Ocupada;
+                    LalistaDeMesasFiltrada.Add(LaListaDeMesas[i]);
+
+                }
+                else
+                {
+                    LalistaDeMesasFiltrada.Add(LaListaDeMesas[i]);
+                }
+                i++;
+            }
+            return LalistaDeMesasFiltrada;
+        }
+
+        public List<Mesas> ObtengaLaListaDeMesasNumero2()
+        {
+            List<Model.Mesas>? LaListaDeMesas;
+            List<Model.Mesas>? LaListaDeMesasFiltradas = new List<Model.Mesas>();
+            LaListaDeMesas = ObtengaLaListaDeMesas();
+
+            for (int i = 1; i <= (LaListaDeMesas.Count() - 1); i++)
+            {
+
+                if (ValideSiMesaEstaAsociadaAUnaOrden(LaListaDeMesas[i].Id) == true)
+                {
+                    LaListaDeMesas[i].estadoDeLaMesa = EstadoDeLaMesa.Ocupada;
+                    LaListaDeMesasFiltradas.Add(LaListaDeMesas[i]);
+                }
+                else
+                {
+                    LaListaDeMesasFiltradas.Add(LaListaDeMesas[i]);
+                }
+                i++;
+            }
+            return LaListaDeMesasFiltradas;
+        }
+
+        public MesaOrden ObtenerUnaOrden()
+        {
+            Model.MesaOrden lasMesasDeOrdenes = new Model.MesaOrden();
+
+            lasMesasDeOrdenes.lasMesas = ObtengaLaListaDeMesas();
+            lasMesasDeOrdenes.losPlatillos = ObtengaLaListaDePlatillos();
+            return lasMesasDeOrdenes;
+        }
+
+        public void AgregarUnaOrden(MesaOrden lasOrden)
+        {
+            lasOrden.Estado = Model.EstadoDeOrdenes.Solicitadas;
+            ElContextoBD.MesaOrden.Add(lasOrden);
+            ElContextoBD.SaveChanges();
+        }
+
+        public Boolean ValideSiMesaEstaAsociadaAUnaOrden(int Id)
+        {
+            var resultado = from c in ElContextoBD.MesaOrden
+                            where c.Id_Mesa == Id
+                            select c;
+            if (resultado.Count() != 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public List<int> ObtengaLosIdDePlatillosAsociadosAUnaMensa(int id)
+        {
+
+            var resultado = from c in ElContextoBD.MesaOrden
+                            where c.Id_Mesa == id
+                            select c.Id_Menu;
+            return resultado.ToList();
+        }
+
+        public List<Menu> ObtengaLosPlatillosAsociadosAUnaMesa(int id)
+        {
+
+            var resultado = from c in ElContextoBD.MesaOrden
+                            join x in ElContextoBD.Menu on c.Id_Menu equals x.Id
+                            where c.Id_Mesa == id
+                            select x;
+            return resultado.ToList();
+        }
+
+        public void CambieEstadoDeOrden(MesaOrden laOrden)
+        {
+            Model.MesaOrden laOrdenAModificar;
+
+            laOrdenAModificar = ObtengaLaOrden(laOrden);
+
+            laOrdenAModificar.Estado = EstadoDeOrdenes.Servidas;
+            ElContextoBD.MesaOrden.Update(laOrdenAModificar);
+            ElContextoBD.SaveChanges();
+        }
+
+        public MesaOrden ObtengaLaOrden(Model.MesaOrden laOrden)
+        {
+            Model.MesaOrden laOrdenAModificar;
+
+            var resultado = from c in ElContextoBD.MesaOrden
+                            where c.Id_Mesa == laOrden.Id_Mesa && c.Id_Menu == laOrden.Id_Menu
+                            select c;
+            laOrdenAModificar = ElContextoBD.MesaOrden.Find(resultado.First().Id);
+            return laOrdenAModificar;
+        }
+
+
     }
 }
