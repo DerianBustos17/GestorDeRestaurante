@@ -45,7 +45,7 @@ namespace GestorDeRestaurante.UI.Controllers
         // GET: OrdenController/Create
         public async Task<IActionResult> Create(int id)
         {
-            List<Platillos> laLista = new List<Platillos>();
+            List<Menu> laLista = new List<Menu>();
 
             try
             {
@@ -55,7 +55,7 @@ namespace GestorDeRestaurante.UI.Controllers
 
                 string apiResponse = await response.Content.ReadAsStringAsync();
 
-                laLista = JsonConvert.DeserializeObject<List<Platillos>>(apiResponse);
+                laLista = JsonConvert.DeserializeObject<List<Menu>>(apiResponse);
 
             }
             catch (Exception)
@@ -72,9 +72,9 @@ namespace GestorDeRestaurante.UI.Controllers
         // POST: OrdenController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(String Platillo, MesaOrden Orden)
+        public async Task<IActionResult> Create(String Menu, MesaOrden Orden)
         {
-            int idPlatillo = Int32.Parse(Platillo);
+            int idPlatillo = Int32.Parse(Menu);
             try
             {
 
