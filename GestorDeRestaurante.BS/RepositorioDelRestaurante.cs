@@ -230,32 +230,41 @@ namespace GestorDeRestaurante.BS
 
 
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$GERARDO (temporal para no enredarme)#################################################
-        public List<Platillos> ObtengaLaListaDelMenuParaIngredientes(List<Menu> losPlatillos, List<MesaOrden> lasOrdenes)
+        public List<Menu> ObtengaLaListaDelMenuParaIngredientes(List<Menu> losPlatillos, List<MenuIngredientes> elMenuDeIngredientes)
         {
-            List<Model.Platillos> elResultado = new List<Model.Platillos>();
+            List<Model.Menu> elResultado = new List<Model.Menu>();
 
             foreach (Model.Menu platillo in losPlatillos)
             {
-                Model.Platillos elPlatilloParaIngredientes = new Model.Platillos();
+                Model.Menu elPlatilloParaIngredientes = new Model.Menu();
 
                 elPlatilloParaIngredientes.Id = platillo.Id;
                 elPlatilloParaIngredientes.Nombre = platillo.Nombre;
                 elPlatilloParaIngredientes.Precio = platillo.Precio;
 
-                foreach (Model.MesaOrden orden in lasOrdenes)
+
+                double sumaValoresAproximadosDeLosIngredientes = 0;
+                foreach (Model.MenuIngredientes item in elMenuDeIngredientes)
                 {
-                    if (orden.Id_Menu == platillo.Id)
-                        elPlatilloParaIngredientes.GananciaAproximada += platillo.Precio * orden.Cantidad;
+                    if (item.Id_Menu == platillo.Id)
+                        sumaValoresAproximadosDeLosIngredientes += item.ValorAproximado;
                 }
+                if (sumaValoresAproximadosDeLosIngredientes > 0)
+                    elPlatilloParaIngredientes.GananciaAproximada = platillo.Precio - sumaValoresAproximadosDeLosIngredientes;
+                else
+                    elPlatilloParaIngredientes.GananciaAproximada = null;
+
+
+
                 elResultado.Add(elPlatilloParaIngredientes);
             }
 
             return elResultado;
         }
 
-        public List<IngredienteDelPlatillo> ObtengaLaListaDeIngredientesDeUnPlatilloPorId(int id)
+        public List<MenuIngredientes> ObtengaLaListaDeIngredientesDeUnPlatilloPorId(int id)
         {
-            List<Model.IngredienteDelPlatillo> elResultado;
+            List<Model.MenuIngredientes> elResultado;
 
             List<Model.MenuIngredientes> laLista;
 
@@ -266,18 +275,18 @@ namespace GestorDeRestaurante.BS
             return elResultado;
         }
 
-        private List<IngredienteDelPlatillo> ObtengaElResultado(List<MenuIngredientes> laLista)
+        private List<MenuIngredientes> ObtengaElResultado(List<MenuIngredientes> laLista)
         {
-            List<Model.IngredienteDelPlatillo> elResultado = new List<Model.IngredienteDelPlatillo>();
-            List<Model.Ingredientes> losIngredientes;
-            List<Model.Medidas> lasMedidas;
+        List<Model.MenuIngredientes> elResultado = new List<Model.MenuIngredientes>();
+        List<Model.Ingredientes> losIngredientes;
+        List<Model.Medidas> lasMedidas;
 
-            losIngredientes = ObtengaLaListaDeIngredientes();
-            lasMedidas = ObtengaLaListaDeMedidas();
+        losIngredientes = ObtengaLaListaDeIngredientes();
+        lasMedidas = ObtengaLaListaDeMedidas();
 
             foreach (MenuIngredientes item in laLista)
             {
-                Model.IngredienteDelPlatillo elIngrediente = new Model.IngredienteDelPlatillo();
+                Model.MenuIngredientes elIngrediente = new Model.MenuIngredientes();
 
                 elIngrediente.Id = item.Id; 
                 elIngrediente.Id_Menu = item.Id_Menu;
@@ -329,21 +338,20 @@ namespace GestorDeRestaurante.BS
         private List<MenuIngredientes> ObtengaLaListaDeIngredientesDelMenuPorId(int id)
         {
             List<MenuIngredientes> elResultado = new List<MenuIngredientes> ();
-            List<MenuIngredientes> laListaAuxiliar;
+            List<MenuIngredientes> elMenuDeIngredientesAuxiliar;
 
-            var laLista = from c in ElContextoBD.MenuIngredientes
+            var elMenuDeIngredientes = from c in ElContextoBD.MenuIngredientes
                             select c;
 
-            laListaAuxiliar = laLista.ToList();
+            elMenuDeIngredientesAuxiliar = elMenuDeIngredientes.ToList();
 
-            foreach (var item in laListaAuxiliar)
+            foreach (var item in elMenuDeIngredientesAuxiliar)
             {
                 if (item.Id_Menu == id)
                 {
                     elResultado.Add(item);
                 }
             }
-
             return elResultado;
         }
 
@@ -539,6 +547,11 @@ namespace GestorDeRestaurante.BS
             return laOrdenAModificar;
         }
 
-
+        public List<MenuIngredientes> ObtengaElMenuDeIngredientes()
+        {
+            var resultado = from c in ElContextoBD.MenuIngredientes
+                            select c;
+            return resultado.ToList();
+        }
     }
 }

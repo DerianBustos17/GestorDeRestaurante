@@ -17,25 +17,25 @@ namespace GestorDeRestaurante.SI.Controllers
 
         // GET: api/<IngredientesDelMenuController>
         [HttpGet("ObtengaElMenuParaAdministrarLosIngredientes")]
-        public IEnumerable<GestorDeRestaurante.Model.Platillos> ObtengaElMenuParaAdministrarLosIngredientes()
+        public IEnumerable<GestorDeRestaurante.Model.Menu> ObtengaElMenuParaAdministrarLosIngredientes()
         {
-            List<Model.Platillos> elResultado;
+            List<Model.Menu> elResultado;
             List<Model.Menu> laListaDelMenu;
-            List<Model.MesaOrden> laListaDeOrdenes;
+            List<Model.MenuIngredientes> elMenuDeIngredientes;
 
             laListaDelMenu = ElRepositorio.ObtengaLaListaDePlatillos();
-            laListaDeOrdenes = ElRepositorio.ObtengaLaListaDeOrdenes();
+            elMenuDeIngredientes = ElRepositorio.ObtengaElMenuDeIngredientes();
 
-            elResultado = ElRepositorio.ObtengaLaListaDelMenuParaIngredientes(laListaDelMenu, laListaDeOrdenes);
+            elResultado = ElRepositorio.ObtengaLaListaDelMenuParaIngredientes(laListaDelMenu, elMenuDeIngredientes);
 
             return elResultado;
         }
 
         // GET api/<IngredientesDelMenuController>/5
         [HttpGet("ObtengaLaListaDeIngredientesDeUnPlatilloPorId")]
-        public IEnumerable<GestorDeRestaurante.Model.IngredienteDelPlatillo> ObtengaLaListaDeIngredientesDeUnPlatilloPorId(int id)
+        public IEnumerable<GestorDeRestaurante.Model.MenuIngredientes> ObtengaLaListaDeIngredientesDeUnPlatilloPorId(int id)
         {
-            List<Model.IngredienteDelPlatillo> elResultado;
+            List<Model.MenuIngredientes> elResultado;
 
             elResultado = ElRepositorio.ObtengaLaListaDeIngredientesDeUnPlatilloPorId(id);
 

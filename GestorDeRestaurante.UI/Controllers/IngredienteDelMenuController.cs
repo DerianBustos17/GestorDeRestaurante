@@ -10,7 +10,7 @@ namespace GestorDeRestaurante.UI.Controllers
         // GET: IngredienteDelMenuController
         public async Task<IActionResult> Index()
         {
-            List<Model.Platillos> laLista;
+            List<Model.Menu> laLista;
 
             try
             {
@@ -18,7 +18,7 @@ namespace GestorDeRestaurante.UI.Controllers
 
                 var response = await httpClient.GetAsync("https://localhost:7071/api/IngredientesDelMenu/ObtengaElMenuParaAdministrarLosIngredientes");
                 string apiResponse = await response.Content.ReadAsStringAsync();
-                laLista = JsonConvert.DeserializeObject<List<GestorDeRestaurante.Model.Platillos>>(apiResponse);
+                laLista = JsonConvert.DeserializeObject<List<GestorDeRestaurante.Model.Menu>>(apiResponse);
 
             }
             catch (Exception ex)
@@ -33,7 +33,7 @@ namespace GestorDeRestaurante.UI.Controllers
         // GET: IngredienteDelMenuController/Details/5
         public async Task<IActionResult> IngredientesDeUnPlatillo(int id)
         {
-            List<Model.IngredienteDelPlatillo> laLista;
+            List<Model.MenuIngredientes> laLista;
 
             try
             {
@@ -46,7 +46,7 @@ namespace GestorDeRestaurante.UI.Controllers
                 var uri = QueryHelpers.AddQueryString("https://localhost:7071/api/IngredientesDelMenu/ObtengaLaListaDeIngredientesDeUnPlatilloPorId", query);
                 var response = await httpClient.GetAsync(uri);
                 string apiResponse = await response.Content.ReadAsStringAsync();
-                laLista = JsonConvert.DeserializeObject<List<GestorDeRestaurante.Model.IngredienteDelPlatillo>>(apiResponse);
+                laLista = JsonConvert.DeserializeObject<List<GestorDeRestaurante.Model.MenuIngredientes>>(apiResponse);
             }
             catch (Exception ex)
             {

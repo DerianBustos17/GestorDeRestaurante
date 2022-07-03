@@ -35,14 +35,14 @@ namespace GestorDeRestaurante.BS
         void EditarLosPlatilos(Model.Menu ElPlatillo);
 
 
+
+        List<Model.Menu> ObtengaLaListaDelMenuParaIngredientes(List<Model.Menu> losPlatillos, List<Model.MenuIngredientes> elMenuDeIngredientes);
+        List<Model.MenuIngredientes> ObtengaLaListaDeIngredientesDeUnPlatilloPorId(int id);
+        List<Model.MenuIngredientes> ObtengaElMenuDeIngredientes();
+
+
+
         List<Model.MesaOrden> ObtengaLaListaDeOrdenes();
-
-
-        List<Model.Platillos> ObtengaLaListaDelMenuParaIngredientes(List<Model.Menu> losPlatillos, List<Model.MesaOrden> lasOrdenes);
-        
-        List<Model.IngredienteDelPlatillo> ObtengaLaListaDeIngredientesDeUnPlatilloPorId(int id);
-
-
         Model.MesasOrdenes ObtengaLasMesasDeOrdenes();
         Model.MesaOrden ObtenerUnaOrden();
         void AgregarUnaOrden(Model.MesaOrden laOrden);
