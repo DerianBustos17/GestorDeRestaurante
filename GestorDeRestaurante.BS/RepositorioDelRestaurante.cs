@@ -47,9 +47,6 @@ namespace GestorDeRestaurante.BS
         }
 
 
-
-
-
         public List<Medidas> ObtengaLaListaDeMedidas()
         {
             var resultado = from c in ElContextoBD.Medidas
@@ -552,6 +549,12 @@ namespace GestorDeRestaurante.BS
             var resultado = from c in ElContextoBD.MenuIngredientes
                             select c;
             return resultado.ToList();
+        }
+
+        public void AgregueElIngredienteAsociado(MenuIngredientes elIngredienteAsociado)
+        {
+            ElContextoBD.MenuIngredientes.Add(elIngredienteAsociado);
+            ElContextoBD.SaveChanges();
         }
     }
 }

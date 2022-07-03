@@ -39,6 +39,7 @@ namespace GestorDeRestaurante.BS
         List<Model.Menu> ObtengaLaListaDelMenuParaIngredientes(List<Model.Menu> losPlatillos, List<Model.MenuIngredientes> elMenuDeIngredientes);
         List<Model.MenuIngredientes> ObtengaLaListaDeIngredientesDeUnPlatilloPorId(int id);
         List<Model.MenuIngredientes> ObtengaElMenuDeIngredientes();
+        void AgregueElIngredienteAsociado(Model.MenuIngredientes elIngredienteAsociado);
 
 
 

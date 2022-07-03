@@ -42,11 +42,43 @@ namespace GestorDeRestaurante.SI.Controllers
             return elResultado;
         }
 
-        // POST api/<IngredientesDelMenuController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        // GET api/<IngredientesDelMenuController>/5
+        [HttpGet("ObtengaLaListaDeIngredientes")]
+        public IEnumerable<GestorDeRestaurante.Model.Ingredientes> ObtengaLaListaDeIngredientes()
         {
+            List<Model.Ingredientes> elResultado;
+
+            elResultado = ElRepositorio.ObtengaLaListaDeIngredientes();
+
+            return elResultado;
         }
+
+        // GET api/<IngredientesDelMenuController>/5
+        [HttpGet("ObtengaLaListaDeMedidas")]
+        public IEnumerable<GestorDeRestaurante.Model.Medidas> ObtengaLaListaDeMedidas()
+        {
+            List<Model.Medidas> elResultado;
+
+            elResultado = ElRepositorio.ObtengaLaListaDeMedidas();
+
+            return elResultado;
+        }
+
+        // POST api/<IngredientesDelMenuController>
+        [HttpPost("AsocieUnIngrediente")]
+        public IActionResult Post([FromBody] GestorDeRestaurante.Model.MenuIngredientes elIngredienteAsociado)
+        {
+            if (ModelState.IsValid)
+            {
+                ElRepositorio.AgregueElIngredienteAsociado(elIngredienteAsociado);
+                return Ok(elIngredienteAsociado);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
 
         // PUT api/<IngredientesDelMenuController>/5
         [HttpPut("{id}")]
