@@ -16,19 +16,21 @@ namespace GestorDeRestaurante.Model
 
         public int Id_Ingredientes { get; set; }
 
+        [Required(ErrorMessage = "El campo Cantidad es requerido")]
         public double Cantidad { get; set; }
 
         public int Id_Medidas { get; set; }
 
         [Display(Name = "Valor aproximado")]
+        [Required(ErrorMessage = "El campo Valor aproximado es requerido")]
         public int ValorAproximado { get; set; }
 
         [NotMapped]
-        public string Nombre { get; set; }
+        public string? Nombre { get; set; }
 
         [NotMapped]
         [Display(Name = "Medida")]
-        public string NombreDeLaMedida { get; set; }
+        public string? NombreDeLaMedida { get; set; }
 
     }
 }

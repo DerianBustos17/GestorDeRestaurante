@@ -20,7 +20,6 @@ namespace GestorDeRestaurante.UI.Controllers
                 var response = await httpClient.GetAsync("https://localhost:7071/api/IngredientesDelMenu/ObtengaElMenuParaAdministrarLosIngredientes");
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 laLista = JsonConvert.DeserializeObject<List<GestorDeRestaurante.Model.Menu>>(apiResponse);
-
             }
             catch (Exception ex)
             {
@@ -28,8 +27,6 @@ namespace GestorDeRestaurante.UI.Controllers
             }
             return View(laLista);
         }
-
-
 
         // GET: IngredienteDelMenuController/Details/5
         public async Task<IActionResult> IngredientesDeUnPlatillo(int id)
@@ -91,34 +88,26 @@ namespace GestorDeRestaurante.UI.Controllers
         // POST: IngredienteDelMenuController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(string idIngrediente, string idMedida, Model.MenuIngredientes menuIngrediente)
+        public async Task<IActionResult> Create(string idMenu, string idIngrediente, string idMedida, Model.MenuIngredientes menuIngrediente)
         {
-            int ElIdDelIngrediente = Int32.Parse(idIngrediente);
-            int ElIdDeLaMedida= Int32.Parse(idMedida);
+            int ElIdDelMenu = int.Parse(idMenu);
+            int ElIdDelIngrediente = int.Parse(idIngrediente);
+            int ElIdDeLaMedida= int.Parse(idMedida);
+
+            menuIngrediente.Id_Menu= ElIdDelMenu;   
+            menuIngrediente.Id_Ingredientes=ElIdDelIngrediente;
+            menuIngrediente.Id_Medidas= ElIdDeLaMedida;
 
             try
             {
-                GestorDeRestaurante.Model.MenuIngredientes elIngredienteAsociado = new Model.MenuIngredientes();
-                
-                elIngredienteAsociado.Id_Menu = 1;
-                elIngredienteAsociado.Id_Ingredientes = ElIdDelIngrediente;
-                elIngredienteAsociado.Cantidad = menuIngrediente.Cantidad;
-                elIngredienteAsociado.Id_Medidas = ElIdDeLaMedida;
-                elIngredienteAsociado.ValorAproximado = menuIngrediente.ValorAproximado;
-
                 var httpClient = new HttpClient();
-
-                string json = JsonConvert.SerializeObject(elIngredienteAsociado);
-
+                string json = JsonConvert.SerializeObject(menuIngrediente);
                 var buffer = System.Text.Encoding.UTF8.GetBytes(json);
-
                 var byteContent = new ByteArrayContent(buffer);
-
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
                 await httpClient.PostAsync("https://localhost:7071/api/IngredientesDelMenu/AsocieUnIngrediente", byteContent);
-
-                return RedirectToAction(nameof(Index));
+                                   
+              return RedirectToAction(nameof(Index));
             }
             catch
             {
