@@ -4,7 +4,7 @@
     ViewData["Title"] = "Ingredientes";
 }
 <center>
-    <h1> <i><p style="color:#900C3F";>Catálogo de Ingredientes</p></i></h1>
+    <h1> <i><p style="color:#900C3F";>Catálogo de ingredientes</p></i></h1>
 </center>
 
 
@@ -35,7 +35,7 @@
             </td>
             <td>
                 @Html.ActionLink("Editar", "Edit", new {  id = item.Id }) |
-                @Html.ActionLink("Detalles", "Details", new { /* id=item.PrimaryKey */ }) 
+                @Html.ActionLink("Detalles", "Detalles", new { id=item.Id }) 
             </td>
         </tr>
 }

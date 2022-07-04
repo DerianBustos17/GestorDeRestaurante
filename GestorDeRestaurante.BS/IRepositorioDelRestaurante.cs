@@ -12,7 +12,7 @@ namespace GestorDeRestaurante.BS
         void AgregueIngredientes(Model.Ingredientes elIngrediente);
         void EditarIngredientes(Model.Ingredientes elIngrediente);
         Model.Ingredientes ObtenerIngredientePorId(int Id);
-
+        List<Model.IngredientesDelPlatillo> ObtengaLaListaDePlatillosPorIngrediente(int idIngredientes);
 
         List<Model.Medidas> ObtengaLaListaDeMedidas();
         Model.Medidas ObTengalaMedida(string Nombre);
@@ -33,6 +33,7 @@ namespace GestorDeRestaurante.BS
         Model.MenuCompleto ObtengaElMenuCompleto();
         Model.Menu ObtenerPlatillosPorId(int? Id);
         void EditarLosPlatilos(Model.Menu ElPlatillo);
+        
 
 
         List<Model.Menu> ObtengaLaListaDelMenuParaIngredientes(List<Model.Menu> losPlatillos, List<Model.MenuIngredientes> elMenuDeIngredientes);

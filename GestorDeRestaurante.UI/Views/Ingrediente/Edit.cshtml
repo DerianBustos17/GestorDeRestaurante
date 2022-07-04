@@ -1,10 +1,12 @@
 ﻿@model GestorDeRestaurante.Model.Ingredientes
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar";
 }
-
-<h1>Editar</h1>
+}
+<center>
+    <h1> <i><p style="color:#900C3F";>Editar los ingredientes</p></i></h1>
+</center>
 
 <h4>Ingredientes</h4>
 <hr />
@@ -29,6 +31,3 @@
     <a asp-action="Index">Salir</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

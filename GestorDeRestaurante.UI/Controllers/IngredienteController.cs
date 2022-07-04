@@ -33,8 +33,23 @@ namespace GestorDeRestaurante.UI.Controllers
 
         // GET: IngredienteController/Details/5
         public async Task<IActionResult> Details(int id)
-        {
-            return View();
+        {Model.Ingredientes elIngrediente;
+            try
+            {
+                var httpClient = new HttpClient();
+
+                var response = await httpClient.GetAsync("https://localhost:7071/api/Ordenes/" + id.ToString());
+
+                string apiResponse = await response.Content.ReadAsStringAsync();
+
+                elIngrediente = JsonConvert.DeserializeObject<Model.Ingredientes>(apiResponse);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return View(elIngrediente) ;
         }
 
         // GET: IngredienteController/Create
@@ -138,11 +153,6 @@ namespace GestorDeRestaurante.UI.Controllers
             }
         }
 
-        // GET: IngredienteController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
         // POST: IngredienteController/Delete/5
         [HttpPost]
@@ -157,6 +167,29 @@ namespace GestorDeRestaurante.UI.Controllers
             {
                 return View();
             }
+        }
+        public async Task<IActionResult> Detalles(int Id, string nombre)
+        {
+            List<Model.IngredientesDelPlatillo> laLista;
+
+            try
+            {
+                var httpClient = new HttpClient();
+
+
+                var response = await httpClient.GetAsync("https://localhost:7071/api/Ingredientes/ListarPlatillosPorIngrediente/" + Id);
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                laLista = JsonConvert.DeserializeObject<List<Model.IngredientesDelPlatillo>>(apiResponse);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+
+            return View(Tuple.Create(laLista, nombre));
         }
     }
 }

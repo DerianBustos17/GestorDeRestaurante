@@ -45,10 +45,40 @@ namespace GestorDeRestaurante.BS
 
             return resultado;
         }
+        public List<IngredientesDelPlatillo> ObtengaLaListaDePlatillosPorIngrediente(int id_Ingredientes)
+        {
+            var query = from c in ElContextoBD.MenuIngredientes
+                        where c.Id_Ingredientes == id_Ingredientes
+                        select c;
 
-        //----------------------------------------------------------------------------------------------------------------------------------------
+            List<MenuIngredientes> ingredientes = query.ToList();
 
-        public List<Medidas> ObtengaLaListaDeMedidas()
+            List<IngredientesDelPlatillo> ingredientDePlatillo = new List<IngredientesDelPlatillo>();
+
+            foreach (MenuIngredientes item in ingredientes)
+            {
+                IngredientesDelPlatillo losingredientesDelPlatillo = new IngredientesDelPlatillo();
+
+                losingredientesDelPlatillo.Id = item.Id;
+
+                losingredientesDelPlatillo.NombreDeLaMedida = ObtenerPorIdLaMedida(item.Id_Medidas).Nombre;
+
+                losingredientesDelPlatillo.NombreDelIngrediente = ObtenerIngredientePorId(item.Id_Ingredientes).Nombre;
+
+                losingredientesDelPlatillo.Nombre =ObtenerPlatillosPorId( item.Id_Menu).Nombre;
+                losingredientesDelPlatillo.Cantidad = item.Cantidad;
+
+                losingredientesDelPlatillo.ValorAproximado = item.ValorAproximado;
+
+                ingredientDePlatillo.Add(losingredientesDelPlatillo);
+            }
+
+            return ingredientDePlatillo;
+        }
+
+            //----------------------------------------------------------------------------------------------------------------------------------------
+
+            public List<Medidas> ObtengaLaListaDeMedidas()
         {
             var resultado = from c in ElContextoBD.Medidas
                             select c;

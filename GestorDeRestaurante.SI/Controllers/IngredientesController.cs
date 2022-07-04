@@ -24,12 +24,7 @@ namespace GestorDeRestaurante.SI.Controllers
             return elResultado;
         }
 
-        // GET api/<IngredientesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+     
 
         // POST api/<IngredientesController>
         [HttpPost]
@@ -72,11 +67,13 @@ namespace GestorDeRestaurante.SI.Controllers
                 return BadRequest(ModelState);
             }
         }
-
-        // DELETE api/<IngredientesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // GET api/<IngredientesController>/5
+        [HttpGet("ListarPlatillosPorIngrediente/{id}")]
+        public IEnumerable<Model.IngredientesDelPlatillo> ListarPlatillosPorIngrediente(int id)
         {
+            List<Model.IngredientesDelPlatillo> elResultado;
+            elResultado = ElRepositorio.ObtengaLaListaDePlatillosPorIngrediente(id);
+            return elResultado;
         }
     }
 }

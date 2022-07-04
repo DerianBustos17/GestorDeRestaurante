@@ -16,7 +16,7 @@ namespace GestorDeRestaurante.Model
 
         public int Id_Ingredientes { get; set; }
 
-        [Required(ErrorMessage = "El campo Cantidad es requerido")]
+        [Required(ErrorMessage = "El campo cantidad es requerido")]
         public double Cantidad { get; set; }
 
         public int Id_Medidas { get; set; }
