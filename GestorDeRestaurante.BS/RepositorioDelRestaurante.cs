@@ -46,6 +46,7 @@ namespace GestorDeRestaurante.BS
             return resultado;
         }
 
+        //----------------------------------------------------------------------------------------------------------------------------------------
 
         public List<Medidas> ObtengaLaListaDeMedidas()
         {
@@ -108,10 +109,7 @@ namespace GestorDeRestaurante.BS
             ElContextoBD.SaveChanges();
         }
 
-
-
-
-
+        //----------------------------------------------------------------------------------------------------------------------------------------
 
         public List<Mesas> ObtengaLaListaDeMesas()
         {
@@ -149,10 +147,7 @@ namespace GestorDeRestaurante.BS
             return resultado;
         }
 
-
-
-
-
+        //----------------------------------------------------------------------------------------------------------------------------------------
 
         public List<Menu> ObtengaLaListaDePlatillos()
         {
@@ -211,154 +206,13 @@ namespace GestorDeRestaurante.BS
             ElContextoBD.SaveChanges();
         }
 
-
-
-
-
-
-        public List<MesaOrden> ObtengaLaListaDeOrdenes()
-        {
-            var resultado = from c in ElContextoBD.MesaOrden
-                            select c;
-            return resultado.ToList();
-        }
-
-
-
-
-        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$GERARDO (temporal para no enredarme)#################################################
-        public List<Menu> ObtengaLaListaDelMenuParaIngredientes(List<Menu> losPlatillos, List<MenuIngredientes> elMenuDeIngredientes)
-        {
-            List<Model.Menu> elResultado = new List<Model.Menu>();
-
-            foreach (Model.Menu platillo in losPlatillos)
-            {
-                Model.Menu elPlatilloParaIngredientes = new Model.Menu();
-
-                elPlatilloParaIngredientes.Id = platillo.Id;
-                elPlatilloParaIngredientes.Nombre = platillo.Nombre;
-                elPlatilloParaIngredientes.Precio = platillo.Precio;
-
-
-                double sumaValoresAproximadosDeLosIngredientes = 0;
-                foreach (Model.MenuIngredientes item in elMenuDeIngredientes)
-                {
-                    if (item.Id_Menu == platillo.Id)
-                        sumaValoresAproximadosDeLosIngredientes += item.ValorAproximado;
-                }
-                if (sumaValoresAproximadosDeLosIngredientes > 0)
-                    elPlatilloParaIngredientes.GananciaAproximada = platillo.Precio - sumaValoresAproximadosDeLosIngredientes;
-                else
-                    elPlatilloParaIngredientes.GananciaAproximada = null;
-
-
-
-                elResultado.Add(elPlatilloParaIngredientes);
-            }
-
-            return elResultado;
-        }
-
-        public List<MenuIngredientes> ObtengaLaListaDeIngredientesDeUnPlatilloPorId(int id)
-        {
-            List<Model.MenuIngredientes> elResultado;
-
-            List<Model.MenuIngredientes> laLista;
-
-            laLista = ObtengaLaListaDeIngredientesDelMenuPorId(id);
-
-            elResultado = ObtengaElResultado(laLista);
-
-            return elResultado;
-        }
-
-        private List<MenuIngredientes> ObtengaElResultado(List<MenuIngredientes> laLista)
-        {
-        List<Model.MenuIngredientes> elResultado = new List<Model.MenuIngredientes>();
-        List<Model.Ingredientes> losIngredientes;
-        List<Model.Medidas> lasMedidas;
-
-        losIngredientes = ObtengaLaListaDeIngredientes();
-        lasMedidas = ObtengaLaListaDeMedidas();
-
-            foreach (MenuIngredientes item in laLista)
-            {
-                Model.MenuIngredientes elIngrediente = new Model.MenuIngredientes();
-
-                elIngrediente.Id = item.Id; 
-                elIngrediente.Id_Menu = item.Id_Menu;
-                elIngrediente.Id_Ingredientes = item.Id_Ingredientes;
-                elIngrediente.Cantidad = item.Cantidad;
-                elIngrediente.Id_Medidas = item.Id_Medidas;
-                elIngrediente.ValorAproximado = item.ValorAproximado;
-
-                elIngrediente.Nombre = ObtengaElNombreDelIngrediente(losIngredientes, item.Id_Ingredientes);
-                elIngrediente.NombreDeLaMedida = ObtengaElNombreDeLaMedida(lasMedidas, item.Id_Medidas);
-
-                elResultado.Add(elIngrediente);
-            }
-
-            return elResultado;
-            
-        }
-
-        private string ObtengaElNombreDeLaMedida(List<Medidas> lasMedidas, int id_Medidas)
-        {
-            string elResultado = "";
-
-            foreach (var item in lasMedidas)
-            {
-                if (item.Id == id_Medidas)
-                {
-                    elResultado = item.Nombre;
-                    break;
-                }
-            }
-            return elResultado;
-        }
-
-        private string ObtengaElNombreDelIngrediente(List <Model.Ingredientes> losIngredientes, int id_Ingredientes)
-        {
-            string elResultado = "";
-
-            foreach (var item in losIngredientes)
-            {
-                if (item.Id == id_Ingredientes)
-                {
-                    elResultado = item.Nombre;
-                    break;
-                }
-            }
-            return elResultado;
-        }
-
-        private List<MenuIngredientes> ObtengaLaListaDeIngredientesDelMenuPorId(int id)
-        {
-            List<MenuIngredientes> elResultado = new List<MenuIngredientes> ();
-            List<MenuIngredientes> elMenuDeIngredientesAuxiliar;
-
-            var elMenuDeIngredientes = from c in ElContextoBD.MenuIngredientes
-                            select c;
-
-            elMenuDeIngredientesAuxiliar = elMenuDeIngredientes.ToList();
-
-            foreach (var item in elMenuDeIngredientesAuxiliar)
-            {
-                if (item.Id_Menu == id)
-                {
-                    elResultado.Add(item);
-                }
-            }
-            return elResultado;
-        }
-
         public List<Menu> ObtengaLasEntradas()
         {
             List<Model.Menu>? LaListaDePlatillos;
-            List<Model.Menu>? LaListaDeEntradas= new List<Model.Menu>();
+            List<Model.Menu>? LaListaDeEntradas = new List<Model.Menu>();
             LaListaDePlatillos = ObtengaLaListaDePlatillos();
 
-            LaListaDeEntradas  = LaListaDePlatillos.Where(x => x.Categoria.ToString().Equals("Entrada")).ToList();
+            LaListaDeEntradas = LaListaDePlatillos.Where(x => x.Categoria.ToString().Equals("Entrada")).ToList();
             return LaListaDeEntradas;
         }
         public List<Menu> ObtengaPlatosPrincipales()
@@ -415,7 +269,183 @@ namespace GestorDeRestaurante.BS
             LaListaDeEntradas = LaListaDePlatillos.Where(x => x.Categoria.ToString().Equals("SopasYEnsaladas")).ToList();
             return LaListaDeEntradas;
         }
+        //----------------------------------------------------------------------------------------------------------------------------------------
+        public List<Menu> ObtengaLaListaDelMenuParaIngredientes(List<Menu> losPlatillos, List<MenuIngredientes> elMenuDeIngredientes)
+        {
+            List<Model.Menu> elResultado = new List<Model.Menu>();
 
+            foreach (Model.Menu platillo in losPlatillos)
+            {
+                Model.Menu elPlatilloParaIngredientes = new Model.Menu();
+
+                elPlatilloParaIngredientes.Id = platillo.Id;
+                elPlatilloParaIngredientes.Nombre = platillo.Nombre;
+                elPlatilloParaIngredientes.Precio = platillo.Precio;
+
+                elPlatilloParaIngredientes.GananciaAproximada = ObtengaLaGananciaAproximada(elMenuDeIngredientes, platillo);
+
+                elResultado.Add(elPlatilloParaIngredientes);
+            }
+
+            return elResultado;
+        }
+
+        public List<MenuIngredientes> ObtengaLaListaDeIngredientesDeUnPlatilloPorId(int id)
+        {
+            List<Model.MenuIngredientes> elResultado;
+
+            List<Model.MenuIngredientes> laLista;
+
+            laLista = ObtengaLaListaDeIngredientesDelMenuPorId(id);
+
+            elResultado = ObtengaElResultadoDeLosIngredientesDeUnPlatillo(laLista);
+
+            return elResultado;
+        }
+
+        public List<MenuIngredientes> ObtengaElMenuDeIngredientes()
+        {
+            var resultado = from c in ElContextoBD.MenuIngredientes
+                            select c;
+            return resultado.ToList();
+        }
+
+        public void AgregueElIngredienteAsociado(MenuIngredientes elIngredienteAsociado)
+        {
+            ElContextoBD.MenuIngredientes.Add(elIngredienteAsociado);
+            ElContextoBD.SaveChanges();
+        }
+
+        public MenuIngredientes ObtenerIngredienteAsociadoPorId(int Id)
+        {
+            Model.MenuIngredientes resultado;
+
+            resultado = ElContextoBD.MenuIngredientes.Find(Id);
+
+            return resultado;
+        }
+
+        public void DesasociarUnIngrediente(MenuIngredientes elIngrediente)
+        {
+            ElContextoBD.MenuIngredientes.Remove(elIngrediente);
+            ElContextoBD.SaveChanges();
+        }
+
+        private double? ObtengaLaGananciaAproximada(List<MenuIngredientes> elMenuDeIngredientes, Model.Menu platillo)
+        {
+            double? elResultado = new double?();
+            double sumaValoresAproximadosDeLosIngredientes = 0;
+            foreach (Model.MenuIngredientes item in elMenuDeIngredientes)
+            {
+                if (item.Id_Menu == platillo.Id)
+                    sumaValoresAproximadosDeLosIngredientes += item.ValorAproximado;
+            }
+            if (sumaValoresAproximadosDeLosIngredientes > 0)
+                elResultado = platillo.Precio - sumaValoresAproximadosDeLosIngredientes;
+            else
+                elResultado = platillo.Precio + sumaValoresAproximadosDeLosIngredientes;
+
+            return elResultado;
+        }
+
+        private List<MenuIngredientes> ObtengaElResultadoDeLosIngredientesDeUnPlatillo(List<MenuIngredientes> laLista)
+        {
+            List<Model.MenuIngredientes> elResultado = new List<Model.MenuIngredientes>();
+            List<Model.Ingredientes> losIngredientes;
+            List<Model.Medidas> lasMedidas;
+
+            losIngredientes = ObtengaLaListaDeIngredientes();
+            lasMedidas = ObtengaLaListaDeMedidas();
+
+            elResultado = ObtengaLasFilasDeLosIngredientesDeUnPlatillo(laLista, losIngredientes, lasMedidas);
+
+            return elResultado;
+
+        }
+
+        private List<MenuIngredientes> ObtengaLasFilasDeLosIngredientesDeUnPlatillo(List<MenuIngredientes> laLista, List<Ingredientes> losIngredientes, List<Medidas> lasMedidas)
+        {
+            List<Model.MenuIngredientes> elResultado = new List<Model.MenuIngredientes>();
+
+            foreach (MenuIngredientes item in laLista)
+            {
+                Model.MenuIngredientes elIngrediente = new Model.MenuIngredientes();
+
+                elIngrediente.Id = item.Id;
+                elIngrediente.Id_Menu = item.Id_Menu;
+                elIngrediente.Id_Ingredientes = item.Id_Ingredientes;
+                elIngrediente.Cantidad = item.Cantidad;
+                elIngrediente.Id_Medidas = item.Id_Medidas;
+                elIngrediente.ValorAproximado = item.ValorAproximado;
+
+                elIngrediente.Nombre = ObtengaElNombreDelIngrediente(losIngredientes, item.Id_Ingredientes);
+                elIngrediente.NombreDeLaMedida = ObtengaElNombreDeLaMedida(lasMedidas, item.Id_Medidas);
+
+                elResultado.Add(elIngrediente);
+            }
+
+            return elResultado;
+        }
+
+
+        private string ObtengaElNombreDeLaMedida(List<Medidas> lasMedidas, int id_Medidas)
+        {
+            string elResultado = "";
+
+            foreach (var item in lasMedidas)
+            {
+                if (item.Id == id_Medidas)
+                {
+                    elResultado = item.Nombre;
+                    break;
+                }
+            }
+            return elResultado;
+        }
+
+        private string ObtengaElNombreDelIngrediente(List<Model.Ingredientes> losIngredientes, int id_Ingredientes)
+        {
+            string elResultado = "";
+
+            foreach (var item in losIngredientes)
+            {
+                if (item.Id == id_Ingredientes)
+                {
+                    elResultado = item.Nombre;
+                    break;
+                }
+            }
+            return elResultado;
+        }
+
+        private List<MenuIngredientes> ObtengaLaListaDeIngredientesDelMenuPorId(int id)
+        {
+            List<MenuIngredientes> elResultado = new List<MenuIngredientes>();
+            List<MenuIngredientes> elMenuDeIngredientesAuxiliar;
+
+            var elMenuDeIngredientes = from c in ElContextoBD.MenuIngredientes
+                                       select c;
+
+            elMenuDeIngredientesAuxiliar = elMenuDeIngredientes.ToList();
+
+            foreach (var item in elMenuDeIngredientesAuxiliar)
+            {
+                if (item.Id_Menu == id)
+                {
+                    elResultado.Add(item);
+                }
+            }
+            return elResultado;
+        }
+
+        //----------------------------------------------------------------------------------------------------------------------------------------
+
+        public List<MesaOrden> ObtengaLaListaDeOrdenes()
+        {
+            var resultado = from c in ElContextoBD.MesaOrden
+                            select c;
+            return resultado.ToList();
+        }
 
         public MesasOrdenes ObtengaLasMesasDeOrdenes()
         {
@@ -425,6 +455,43 @@ namespace GestorDeRestaurante.BS
             lasMesasDeOrdenes.MesasNumero2 = ObtengaLaListaDeMesasNumero2();
 
             return lasMesasDeOrdenes;
+        }
+
+        public MesaOrden ObtenerUnaOrden()
+        {
+            Model.MesaOrden lasMesasDeOrdenes = new Model.MesaOrden();
+
+            lasMesasDeOrdenes.lasMesas = ObtengaLaListaDeMesas();
+            lasMesasDeOrdenes.losPlatillos = ObtengaLaListaDePlatillos();
+            return lasMesasDeOrdenes;
+        }
+
+        public void AgregarUnaOrden(MesaOrden lasOrden)
+        {
+            lasOrden.Estado = Model.EstadoDeOrdenes.Solicitadas;
+            ElContextoBD.MesaOrden.Add(lasOrden);
+            ElContextoBD.SaveChanges();
+        }
+
+        public List<Menu> ObtengaLosPlatillosAsociadosAUnaMesa(int id)
+        {
+
+            var resultado = from c in ElContextoBD.MesaOrden
+                            join x in ElContextoBD.Menu on c.Id_Menu equals x.Id
+                            where c.Id_Mesa == id
+                            select x;
+            return resultado.ToList();
+        }
+
+        public void CambieEstadoDeOrden(MesaOrden laOrden)
+        {
+            Model.MesaOrden laOrdenAModificar;
+
+            laOrdenAModificar = ObtengaLaOrden(laOrden);
+
+            laOrdenAModificar.Estado = EstadoDeOrdenes.Servidas;
+            ElContextoBD.MesaOrden.Update(laOrdenAModificar);
+            ElContextoBD.SaveChanges();
         }
 
         public List<Mesas> ObtengaLasListaDeMesasNumero1()
@@ -474,22 +541,6 @@ namespace GestorDeRestaurante.BS
             return LaListaDeMesasFiltradas;
         }
 
-        public MesaOrden ObtenerUnaOrden()
-        {
-            Model.MesaOrden lasMesasDeOrdenes = new Model.MesaOrden();
-
-            lasMesasDeOrdenes.lasMesas = ObtengaLaListaDeMesas();
-            lasMesasDeOrdenes.losPlatillos = ObtengaLaListaDePlatillos();
-            return lasMesasDeOrdenes;
-        }
-
-        public void AgregarUnaOrden(MesaOrden lasOrden)
-        {
-            lasOrden.Estado = Model.EstadoDeOrdenes.Solicitadas;
-            ElContextoBD.MesaOrden.Add(lasOrden);
-            ElContextoBD.SaveChanges();
-        }
-
         public Boolean ValideSiMesaEstaAsociadaAUnaOrden(int Id)
         {
             var resultado = from c in ElContextoBD.MesaOrden
@@ -512,27 +563,6 @@ namespace GestorDeRestaurante.BS
             return resultado.ToList();
         }
 
-        public List<Menu> ObtengaLosPlatillosAsociadosAUnaMesa(int id)
-        {
-
-            var resultado = from c in ElContextoBD.MesaOrden
-                            join x in ElContextoBD.Menu on c.Id_Menu equals x.Id
-                            where c.Id_Mesa == id
-                            select x;
-            return resultado.ToList();
-        }
-
-        public void CambieEstadoDeOrden(MesaOrden laOrden)
-        {
-            Model.MesaOrden laOrdenAModificar;
-
-            laOrdenAModificar = ObtengaLaOrden(laOrden);
-
-            laOrdenAModificar.Estado = EstadoDeOrdenes.Servidas;
-            ElContextoBD.MesaOrden.Update(laOrdenAModificar);
-            ElContextoBD.SaveChanges();
-        }
-
         public MesaOrden ObtengaLaOrden(Model.MesaOrden laOrden)
         {
             Model.MesaOrden laOrdenAModificar;
@@ -542,19 +572,6 @@ namespace GestorDeRestaurante.BS
                             select c;
             laOrdenAModificar = ElContextoBD.MesaOrden.Find(resultado.First().Id);
             return laOrdenAModificar;
-        }
-
-        public List<MenuIngredientes> ObtengaElMenuDeIngredientes()
-        {
-            var resultado = from c in ElContextoBD.MenuIngredientes
-                            select c;
-            return resultado.ToList();
-        }
-
-        public void AgregueElIngredienteAsociado(MenuIngredientes elIngredienteAsociado)
-        {
-            ElContextoBD.MenuIngredientes.Add(elIngredienteAsociado);
-            ElContextoBD.SaveChanges();
         }
     }
 }

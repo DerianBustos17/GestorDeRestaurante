@@ -80,16 +80,15 @@ namespace GestorDeRestaurante.SI.Controllers
         }
 
 
-        // PUT api/<IngredientesDelMenuController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
         // DELETE api/<IngredientesDelMenuController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+
+        [HttpPut("DesasocieUnIngrediente")]
+        public IActionResult DesasocieUnIngrediente([FromBody] int id)
         {
+            Model.MenuIngredientes elIngredientePorDesasociar;
+            elIngredientePorDesasociar = ElRepositorio.ObtenerIngredienteAsociadoPorId(id);
+            ElRepositorio.DesasociarUnIngrediente(elIngredientePorDesasociar);
+            return NoContent();
         }
     }
 }

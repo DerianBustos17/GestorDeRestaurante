@@ -35,12 +35,12 @@ namespace GestorDeRestaurante.BS
         void EditarLosPlatilos(Model.Menu ElPlatillo);
 
 
-
         List<Model.Menu> ObtengaLaListaDelMenuParaIngredientes(List<Model.Menu> losPlatillos, List<Model.MenuIngredientes> elMenuDeIngredientes);
         List<Model.MenuIngredientes> ObtengaLaListaDeIngredientesDeUnPlatilloPorId(int id);
         List<Model.MenuIngredientes> ObtengaElMenuDeIngredientes();
         void AgregueElIngredienteAsociado(Model.MenuIngredientes elIngredienteAsociado);
-
+        Model.MenuIngredientes ObtenerIngredienteAsociadoPorId(int id);
+        void DesasociarUnIngrediente(Model.MenuIngredientes elIngrediente);
 
 
         List<Model.MesaOrden> ObtengaLaListaDeOrdenes();

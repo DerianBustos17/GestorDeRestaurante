@@ -115,46 +115,35 @@ namespace GestorDeRestaurante.UI.Controllers
             }
         }
 
-        // GET: IngredienteDelMenuController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: IngredienteDelMenuController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         // GET: IngredienteDelMenuController/Delete/5
-        public ActionResult Delete(int id)
+        [Route("DesasocieUnIngrediente/{id}")]
+        public async Task<IActionResult> DesasociarUnIngrediente(int id)
         {
-            return View();
-        }
+           
 
-        // POST: IngredienteDelMenuController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var httpClient = new HttpClient();
+
+                string json = JsonConvert.SerializeObject(id);
+
+                var buffer = System.Text.Encoding.UTF8.GetBytes(json);
+
+                var byteContent = new ByteArrayContent(buffer);
+
+                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+          
+                await httpClient.PutAsync("https://localhost:7071/api/IngredientesDelMenu/DesasocieUnIngrediente", byteContent);
+
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                throw ex;
             }
+            
+            return RedirectToAction(nameof(Index));
         }
     }
 }
