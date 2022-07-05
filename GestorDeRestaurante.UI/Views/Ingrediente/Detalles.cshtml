@@ -10,7 +10,8 @@
     <center>
      <h4> <i><p style="color:#900C3F";>Detalles del ingrediente</p></i></h4>
      </center>
-      <h5>Nombre del ingrediente: @Model.Item1.First().NombreDelIngrediente</h5>
+   
+    
     <hr />
 
        
@@ -19,7 +20,12 @@
 
     <dl class="row">
        
-       
+         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => elPlatillo.NombreDelIngrediente)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => elPlatillo.NombreDelIngrediente)
+        </dd>
           <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => elPlatillo.Nombre)
         </dt>
