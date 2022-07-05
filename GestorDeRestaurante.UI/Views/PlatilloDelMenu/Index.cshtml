@@ -6,21 +6,19 @@
 
 <center>
     <i>
-        <h1> <p style="color:#C70039";>Catálogo de Platillos del Menú</p></h1>
+        <h1> <p style="color:#C70039";>Catálogo de platillos del menú</p></h1>
     </i>
 </center>
 
 <p>
     <a asp-action="Create">Ingresar</a>
 
-    <a asp-action="MenuCompleto">Menú Completo</a>
+    <a asp-action="MenuCompleto">Menú completo</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
+           
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
@@ -39,9 +37,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
+           
             <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>

@@ -3,19 +3,17 @@
 @{
     ViewData["Title"] = "Details";
 }
-
-<h1>Detalles</h1>
+<center>
+    <i>
+        <h1> <p style="color:#C70039";> Detalles de platillos del menú</p></h1>
+    </i>
+</center>
 
 <div>
     <h4>Platillos</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
+       
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Nombre)
         </dt>
@@ -51,5 +49,5 @@
 </div>
 <div>
 
-    <a asp-action="Index">Volver</a>
+    <a asp-action="Index">Regresar a la página principal</a>
 </div>

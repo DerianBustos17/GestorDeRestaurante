@@ -4,7 +4,11 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Editar</h1>
+<center>
+    <i>
+        <h1> <p style="color:#C70039";> Editar platillos del menú</p></h1>
+    </i>
+</center>
 
 <h4>Platillos</h4>
 <hr />
@@ -12,11 +16,7 @@
     <div class="col-md-4">
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
+          
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
                 <input asp-for="Nombre" class="form-control" />
@@ -39,14 +39,14 @@
                 <span asp-validation-for="Imagen" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Editar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Volver</a>
+    <a asp-action="Index">Regresar a la página principal</a>
 </div>
 
 @section Scripts {

@@ -163,7 +163,6 @@ namespace GestorDeRestaurante.BS
 
             laMesaAModificar.Nombre = lasMesas.Nombre;
 
-            laMesaAModificar.Estado = lasMesas.Estado;
             ElContextoBD.Mesas.Update(laMesaAModificar);
             ElContextoBD.SaveChanges();
         }
@@ -222,17 +221,17 @@ namespace GestorDeRestaurante.BS
 
         public void EditarLosPlatilos(Model.Menu? ElPlatillo)
         {
-            Model.Menu ElPlatilloaModificar;
+            Model.Menu elPlatilloaModificar;
 
-            ElPlatilloaModificar = ObtenerPlatillosPorId(ElPlatillo.Id);
+            elPlatilloaModificar = ObtenerPlatillosPorId(ElPlatillo.Id);
 
-            ElPlatilloaModificar.Nombre = ElPlatillo.Nombre;
+            elPlatilloaModificar.Nombre = ElPlatillo.Nombre;
 
-            ElPlatilloaModificar.Precio = ElPlatillo.Precio;
-            ElPlatilloaModificar.Categoria = ElPlatillo.Categoria;
-            ElPlatilloaModificar.Imagen = ElPlatillo.Imagen;
+            elPlatilloaModificar.Precio = ElPlatillo.Precio;
+            elPlatilloaModificar.Categoria = ElPlatillo.Categoria;
+            elPlatilloaModificar.Imagen = ElPlatillo.Imagen;
 
-            ElContextoBD.Menu.Update(ElPlatilloaModificar);
+            ElContextoBD.Menu.Update(elPlatilloaModificar);
             ElContextoBD.SaveChanges();
         }
 
@@ -584,14 +583,6 @@ namespace GestorDeRestaurante.BS
             return false;
         }
 
-        public List<int> ObtengaLosIdDePlatillosAsociadosAUnaMensa(int id)
-        {
-
-            var resultado = from c in ElContextoBD.MesaOrden
-                            where c.Id_Mesa == id
-                            select c.Id_Menu;
-            return resultado.ToList();
-        }
 
         public MesaOrden ObtengaLaOrden(Model.MesaOrden laOrden)
         {
