@@ -51,11 +51,11 @@ namespace GestorDeRestaurante.SI.Controllers
             return elResultado;
         }
 
-        // PUT api/<MesasController>/5
-        [HttpPut]
+    
+
+        [HttpPut("Editar")]
         public IActionResult Put([FromBody] GestorDeRestaurante.Model.Mesas lasMesas)
         {
-
             if (ModelState.IsValid)
             {
                 ElRepositorio.EditarLasMesas(lasMesas);
@@ -66,6 +66,7 @@ namespace GestorDeRestaurante.SI.Controllers
                 return BadRequest(ModelState);
             }
         }
+
         // PUT api/<ValuesController>/5
         [HttpPut("Deshabilitar")]
         public IActionResult Deshabilitar([FromBody] GestorDeRestaurante.Model.Mesas lasMesas)

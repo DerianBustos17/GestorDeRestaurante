@@ -97,10 +97,12 @@ namespace GestorDeRestaurante.UI.Controllers
             }
         }
 
-        // GET: MesaController/Edit/5
+
+
+        // GET: MedidasController/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            Model.Mesas lasMesas;
+            Model.Mesas laMesa;
 
             try
 
@@ -117,7 +119,7 @@ namespace GestorDeRestaurante.UI.Controllers
                 var response = await httpClient.GetAsync(uri);
                 string apiResponse = await response.Content.ReadAsStringAsync();
 
-                lasMesas = JsonConvert.DeserializeObject<GestorDeRestaurante.Model.Mesas>(apiResponse);
+                laMesa = JsonConvert.DeserializeObject<GestorDeRestaurante.Model.Mesas>(apiResponse);
 
             }
             catch (Exception ex)
@@ -125,10 +127,13 @@ namespace GestorDeRestaurante.UI.Controllers
                 throw ex;
 
             }
-            return View();
+
+            return View(laMesa);
         }
 
-        // POST: MesaController/Edit/5
+
+
+        // POST: MedidasController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Model.Mesas mesas)
@@ -146,7 +151,7 @@ namespace GestorDeRestaurante.UI.Controllers
 
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                await httpClient.PutAsync("https://localhost:7071/api/Mesas", byteContent);
+                await httpClient.PutAsync("https://localhost:7071/api/Mesas/Editar", byteContent);
 
 
                 return RedirectToAction(nameof(Index));
@@ -156,8 +161,6 @@ namespace GestorDeRestaurante.UI.Controllers
                 return View();
             }
         }
-
-   
 
 
         public async Task<ActionResult> Deshabilitar(int id)
