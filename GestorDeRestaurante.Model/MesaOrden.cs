@@ -26,5 +26,7 @@ namespace GestorDeRestaurante.Model
 
         public EstadoDeOrdenes Estado { get; set; }
 
+  
+
     }
 }

@@ -507,10 +507,13 @@ namespace GestorDeRestaurante.BS
 
             var resultado = from c in ElContextoBD.MesaOrden
                             join x in ElContextoBD.Menu on c.Id_Menu equals x.Id
-                            where c.Id_Mesa == id
+                            where c.Id_Mesa == id && c.Estado == EstadoDeOrdenes.Solicitadas
                             select x;
             return resultado.ToList();
         }
+
+
+    
 
         public void CambieEstadoDeOrden(MesaOrden laOrden)
         {
@@ -589,7 +592,7 @@ namespace GestorDeRestaurante.BS
             Model.MesaOrden laOrdenAModificar;
 
             var resultado = from c in ElContextoBD.MesaOrden
-                            where c.Id_Mesa == laOrden.Id_Mesa && c.Id_Menu == laOrden.Id_Menu
+                            where c.Id_Mesa == laOrden.Id_Mesa && c.Id_Menu == laOrden.Id_Menu && c.Estado != EstadoDeOrdenes.Servidas
                             select c;
             laOrdenAModificar = ElContextoBD.MesaOrden.Find(resultado.First().Id);
             return laOrdenAModificar;

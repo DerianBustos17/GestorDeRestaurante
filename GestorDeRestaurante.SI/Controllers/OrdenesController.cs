@@ -69,6 +69,7 @@ namespace GestorDeRestaurante.SI.Controllers
             lasMesa.Id = id;
             lasMesa.PlatillosAsociadosALaMesa = ElRepositorio.ObtengaLosPlatillosAsociadosAUnaMesa(id);
 
+
             return lasMesa;
         }
 

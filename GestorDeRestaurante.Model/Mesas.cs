@@ -18,5 +18,6 @@ namespace GestorDeRestaurante.Model
         [NotMapped]
 
         public List<Menu>? PlatillosAsociadosALaMesa { get; set; }
+
     }
 }
