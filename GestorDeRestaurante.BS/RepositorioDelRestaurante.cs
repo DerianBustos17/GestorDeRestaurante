@@ -504,16 +504,34 @@ namespace GestorDeRestaurante.BS
 
         public List<Menu> ObtengaLosPlatillosAsociadosAUnaMesa(int id)
         {
+            List<Model.MesaOrden> laListaDeOrdenesAsociadas;
 
-            var resultado = from c in ElContextoBD.MesaOrden
-                            join x in ElContextoBD.Menu on c.Id_Menu equals x.Id
-                            where c.Id_Mesa == id && c.Estado == EstadoDeOrdenes.Solicitadas
-                            select x;
-            return resultado.ToList();
+            var elResultado = from c in ElContextoBD.MesaOrden
+                              join x in ElContextoBD.Menu on c.Id_Menu equals x.Id
+                              where c.Id_Mesa == id && c.Estado == EstadoDeOrdenes.Solicitadas
+                              select x;
+
+
+            var lasOrdenes = from c in ElContextoBD.MesaOrden
+                             join x in ElContextoBD.Menu on c.Id_Menu equals x.Id
+                             where c.Id_Mesa == id && c.Estado == EstadoDeOrdenes.Solicitadas
+                             select c;
+
+            laListaDeOrdenesAsociadas = lasOrdenes.ToList();
+
+
+            int contador = 0;
+            foreach (var item in elResultado.ToList())
+            {
+                item.Id_Orden = laListaDeOrdenesAsociadas[contador].Id;
+                contador++;
+            }
+
+            return elResultado.ToList();
         }
 
 
-    
+
 
         public void CambieEstadoDeOrden(MesaOrden laOrden)
         {
@@ -592,9 +610,11 @@ namespace GestorDeRestaurante.BS
             Model.MesaOrden laOrdenAModificar;
 
             var resultado = from c in ElContextoBD.MesaOrden
-                            where c.Id_Mesa == laOrden.Id_Mesa && c.Id_Menu == laOrden.Id_Menu && c.Estado != EstadoDeOrdenes.Servidas
+                            where c.Id_Mesa == laOrden.Id_Mesa && c.Id_Menu == laOrden.Id_Menu && c.Id == laOrden.Id
                             select c;
+
             laOrdenAModificar = ElContextoBD.MesaOrden.Find(resultado.First().Id);
+
             return laOrdenAModificar;
         }
     }

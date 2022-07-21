@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
@@ -6,6 +7,7 @@ using System.Net.Http.Headers;
 
 namespace GestorDeRestaurante.UI.Controllers
 {
+    [Authorize]
     public class PlatilloDelMenuController : Controller
     {
         // GET: PlatilloController

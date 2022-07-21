@@ -1,12 +1,13 @@
 ﻿@page
 @model LoginModel
-
+<center>
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Autenticarse";
 }
 
 <h1>@ViewData["Title"]</h1>
-<div class="row">
+
+<div class="row"><center>
     <div class="col-md-4">
         <section>
             <form id="account" method="post">
@@ -35,7 +36,7 @@
                 </div>
                 <div>
                     <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">¿Olvido su contraseña?</a>
+                        <a id="forgot-password" asp-page="./ForgotPassword">¿Olvidó su contraseña?</a>
                     </p>
                     <p>
                         <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Registrar un nuevo usuario</a>
@@ -47,8 +48,8 @@
             </form>
         </section>
     </div>
-</div>
-
+</center></div>
+</center>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

@@ -9,9 +9,11 @@ using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using GestorDeRestaurante.Model;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GestorDeRestaurante.UI.Controllers
 {
+    [Authorize]
     public class OrdenesController : Controller
     {
 
@@ -109,11 +111,15 @@ namespace GestorDeRestaurante.UI.Controllers
 
 
 
-        public async Task<IActionResult> SeleccionarPlatillos(int id, int id_Mesa)
+        public async Task<IActionResult> SeleccionarPlatillos(int id, int id_Mesa, int id_orden)
         {
+
             Model.MesaOrden laOrden = new Model.MesaOrden();
             laOrden.Id_Menu = id;
             laOrden.Id_Mesa = id_Mesa;
+            laOrden.Id = id_orden;
+
+
             try
             {
 

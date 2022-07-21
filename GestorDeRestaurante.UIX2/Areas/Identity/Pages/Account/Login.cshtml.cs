@@ -154,7 +154,7 @@ namespace GestorDeRestaurante.UIX2.Areas.Identity.Pages.Account
                                                                 laFechaYHoraDeFinalizacionDelBloqueo.ToString("dd/MM/yyyy") +
                                                                 " a las " + laFechaYHoraDeFinalizacionDelBloqueo.ToString("hh:mm") + ".";
 
-                            string elAsuntoDelCorreo = "Usuario Bloqueado.";
+                            string elAsuntoDelCorreo = "Usuario bloqueado.";
                             string elCuerpoDelCorreo = "<body><text>" + elMensajeDeBloqueoDeCuenta + "</text></body>";
                             EnviarCorreo(elCorreoElectronicoDelUsuario, elAsuntoDelCorreo, elCuerpoDelCorreo);
 

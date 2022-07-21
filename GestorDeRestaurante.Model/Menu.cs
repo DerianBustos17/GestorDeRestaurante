@@ -23,7 +23,7 @@ namespace GestorDeRestaurante.Model
         [NotMapped]
         [Display(Name = "Ganancia aproximada")]
         public double? GananciaAproximada { get; set; }
-
-
+        [NotMapped]
+        public int Id_Orden { get; set; }
     }
 }

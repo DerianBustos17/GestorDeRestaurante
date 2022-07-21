@@ -18,7 +18,7 @@ ViewData["Title"] = "Catálogo de órdenes";
                 @Html.DisplayFor(modelItem => item.Nombre)
                  </td>
                    <td WIDTH="50" HEIGHT="50" >
-                  @Html.ActionLink("Seleccionar", "SeleccionarPlatillos", new { id=item.Id, id_Mesa = Model.Id }) 
+                 @Html.ActionLink("Seleccionar", "SeleccionarPlatillos", new { id=item.Id, id_Mesa = Model.Id, id_orden = item.Id_Orden})
                  </td>
                  </tr>        
                    }
