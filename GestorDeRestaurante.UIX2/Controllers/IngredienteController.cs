@@ -18,7 +18,7 @@ namespace GestorDeRestaurante.UI.Controllers
             {
                 var httpClient = new HttpClient();
 
-                var response = await httpClient.GetAsync("https://localhost:7071/api/Ingredientes/ObtengaLaLista");
+                var response = await httpClient.GetAsync("https://gestorderestaurante--si.azurewebsites.net/api/Ingredientes/ObtengaLaLista");
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 laLista = JsonConvert.DeserializeObject<List<GestorDeRestaurante.Model.Ingredientes>>(apiResponse);
 
@@ -40,7 +40,7 @@ namespace GestorDeRestaurante.UI.Controllers
             {
                 var httpClient = new HttpClient();
 
-                var response = await httpClient.GetAsync("https://localhost:7071/api/Ordenes/" + id.ToString());
+                var response = await httpClient.GetAsync("https://gestorderestaurante--si.azurewebsites.net/api/Ordenes/" + id.ToString());
 
                 string apiResponse = await response.Content.ReadAsStringAsync();
 
@@ -84,7 +84,7 @@ namespace GestorDeRestaurante.UI.Controllers
 
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                await httpClient.PostAsync("https://localhost:7071/api/Ingredientes", byteContent);
+                await httpClient.PostAsync("https://gestorderestaurante--si.azurewebsites.net/api/Ingredientes", byteContent);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -111,7 +111,7 @@ namespace GestorDeRestaurante.UI.Controllers
                     ["id"] = id.ToString()
                 };
 
-                var uri = QueryHelpers.AddQueryString("https://localhost:7071/api/Ingredientes/ObtenerIngredientePorId", query);
+                var uri = QueryHelpers.AddQueryString("https://gestorderestaurante--si.azurewebsites.net/api/Ingredientes/ObtenerIngredientePorId", query);
                 var response = await httpClient.GetAsync(uri);
                 string apiResponse = await response.Content.ReadAsStringAsync();
 
@@ -144,7 +144,7 @@ namespace GestorDeRestaurante.UI.Controllers
 
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                await httpClient.PutAsync("https://localhost:7071/api/Ingredientes", byteContent);
+                await httpClient.PutAsync("https://gestorderestaurante--si.azurewebsites.net/api/Ingredientes", byteContent);
 
 
                 return RedirectToAction(nameof(Index));
@@ -179,7 +179,7 @@ namespace GestorDeRestaurante.UI.Controllers
                 var httpClient = new HttpClient();
 
 
-                var response = await httpClient.GetAsync("https://localhost:7071/api/Ingredientes/ListarPlatillosPorIngrediente/" + Id);
+                var response = await httpClient.GetAsync("https://gestorderestaurante--si.azurewebsites.net/api/Ingredientes/ListarPlatillosPorIngrediente/" + Id);
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 laLista = JsonConvert.DeserializeObject<List<Model.IngredientesDelPlatillo>>(apiResponse);
 

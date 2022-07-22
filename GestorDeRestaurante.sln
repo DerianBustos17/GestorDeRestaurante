@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestorDeRestaurante.BS", "G
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestorDeRestaurante.SI", "GestorDeRestaurante.SI\GestorDeRestaurante.SI.csproj", "{3EB6661B-52C2-4BC3-863E-A1C782230C64}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestorDeRestaurante.UI", "GestorDeRestaurante.UI\GestorDeRestaurante.UI.csproj", "{55E23272-461B-4F05-823F-BE1F6B18EEF4}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestorDeRestaurante.DA", "GestorDeRestaurante.DA\GestorDeRestaurante.DA.csproj", "{4F0FE3F0-860E-4BC7-82C2-BB9BCE16388F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestorDeRestaurante.Model", "GestorDeRestaurante.Model\GestorDeRestaurante.Model.csproj", "{2670C3F7-6912-4C3C-A0DA-56626FCB83A3}"
@@ -29,10 +27,6 @@ Global
 		{3EB6661B-52C2-4BC3-863E-A1C782230C64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EB6661B-52C2-4BC3-863E-A1C782230C64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EB6661B-52C2-4BC3-863E-A1C782230C64}.Release|Any CPU.Build.0 = Release|Any CPU
-		{55E23272-461B-4F05-823F-BE1F6B18EEF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{55E23272-461B-4F05-823F-BE1F6B18EEF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{55E23272-461B-4F05-823F-BE1F6B18EEF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{55E23272-461B-4F05-823F-BE1F6B18EEF4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4F0FE3F0-860E-4BC7-82C2-BB9BCE16388F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4F0FE3F0-860E-4BC7-82C2-BB9BCE16388F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F0FE3F0-860E-4BC7-82C2-BB9BCE16388F}.Release|Any CPU.ActiveCfg = Release|Any CPU

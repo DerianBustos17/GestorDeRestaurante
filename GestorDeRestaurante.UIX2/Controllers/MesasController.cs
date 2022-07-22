@@ -18,7 +18,7 @@ namespace GestorDeRestaurante.UI.Controllers
             {
                 var httpClient = new HttpClient();
 
-                var response = await httpClient.GetAsync("https://localhost:7071/api/Mesas/ObtengaLaListaDeMesas");
+                var response = await httpClient.GetAsync("https://gestorderestaurante--si.azurewebsites.net/api/Mesas/ObtengaLaListaDeMesas");
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 laLista = JsonConvert.DeserializeObject<List<GestorDeRestaurante.Model.Mesas>>(apiResponse);
 
@@ -45,7 +45,7 @@ namespace GestorDeRestaurante.UI.Controllers
                     ["id"] = Id.ToString()
                 };
 
-                var uri = QueryHelpers.AddQueryString("https://localhost:7071/api/Mesas/ObtenerMesasPorId", query);
+                var uri = QueryHelpers.AddQueryString("https://gestorderestaurante--si.azurewebsites.net/api/Mesas/ObtenerMesasPorId", query);
                 var response = await httpClient.GetAsync(uri);
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 lasMesas = JsonConvert.DeserializeObject<GestorDeRestaurante.Model.Mesas>(apiResponse);
@@ -89,7 +89,7 @@ namespace GestorDeRestaurante.UI.Controllers
 
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                await httpClient.PostAsync("https://localhost:7071/api/Mesas", byteContent);
+                await httpClient.PostAsync("https://gestorderestaurante--si.azurewebsites.net/api/Mesas", byteContent);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -117,7 +117,7 @@ namespace GestorDeRestaurante.UI.Controllers
                     ["id"] = id.ToString()
                 };
 
-                var uri = QueryHelpers.AddQueryString("https://localhost:7071/api/Mesas/ObtenerMesasPorId", query);
+                var uri = QueryHelpers.AddQueryString("https://gestorderestaurante--si.azurewebsites.net/api/Mesas/ObtenerMesasPorId", query);
                 var response = await httpClient.GetAsync(uri);
                 string apiResponse = await response.Content.ReadAsStringAsync();
 
@@ -153,7 +153,7 @@ namespace GestorDeRestaurante.UI.Controllers
 
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                await httpClient.PutAsync("https://localhost:7071/api/Mesas/Editar", byteContent);
+                await httpClient.PutAsync("https://gestorderestaurante--si.azurewebsites.net/api/Mesas/Editar", byteContent);
 
 
                 return RedirectToAction(nameof(Index));
@@ -184,7 +184,7 @@ namespace GestorDeRestaurante.UI.Controllers
 
                     byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                    var response = await httpClient.PutAsync("https://localhost:7071/api/Mesas/Deshabilitar" ,byteContent);
+                    var response = await httpClient.PutAsync("https://gestorderestaurante--si.azurewebsites.net/api/Mesas/Deshabilitar", byteContent);
 
                 }
 
@@ -217,7 +217,7 @@ namespace GestorDeRestaurante.UI.Controllers
 
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                var response = await httpClient.PutAsync("https://localhost:7071/api/Mesas/Habilitar", byteContent);
+                var response = await httpClient.PutAsync("https://gestorderestaurante--si.azurewebsites.net/api/Mesas/Habilitar", byteContent);
 
             }
 

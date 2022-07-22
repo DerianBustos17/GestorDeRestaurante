@@ -19,7 +19,7 @@ namespace GestorDeRestaurante.UI.Controllers
             {
                 var httpClient = new HttpClient();
 
-                var response = await httpClient.GetAsync("https://localhost:7071/api/IngredientesDelMenu/ObtengaElMenuParaAdministrarLosIngredientes");
+                var response = await httpClient.GetAsync("https://gestorderestaurante--si.azurewebsites.net/api/IngredientesDelMenu/ObtengaElMenuParaAdministrarLosIngredientes");
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 laLista = JsonConvert.DeserializeObject<List<GestorDeRestaurante.Model.Menu>>(apiResponse);
             }
@@ -43,7 +43,7 @@ namespace GestorDeRestaurante.UI.Controllers
                     ["id"] = id.ToString()
                 };
 
-                var uri = QueryHelpers.AddQueryString("https://localhost:7071/api/IngredientesDelMenu/ObtengaLaListaDeIngredientesDeUnPlatilloPorId", query);
+                var uri = QueryHelpers.AddQueryString("https://gestorderestaurante--si.azurewebsites.net/api/IngredientesDelMenu/ObtengaLaListaDeIngredientesDeUnPlatilloPorId", query);
                 var response = await httpClient.GetAsync(uri);
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 laLista = JsonConvert.DeserializeObject<List<GestorDeRestaurante.Model.MenuIngredientes>>(apiResponse);
@@ -66,7 +66,7 @@ namespace GestorDeRestaurante.UI.Controllers
             try
             {
                 var httpClient = new HttpClient();
-                var response = await httpClient.GetAsync("https://localhost:7071/api/IngredientesDelMenu/ObtengaLaListaDeIngredientes");
+                var response = await httpClient.GetAsync("https://gestorderestaurante--si.azurewebsites.net/api/IngredientesDelMenu/ObtengaLaListaDeIngredientes");
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 laListaDeIngredientes = JsonConvert.DeserializeObject<List<Model.Ingredientes>>(apiResponse);
 
@@ -107,7 +107,7 @@ namespace GestorDeRestaurante.UI.Controllers
                 var buffer = System.Text.Encoding.UTF8.GetBytes(json);
                 var byteContent = new ByteArrayContent(buffer);
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                await httpClient.PostAsync("https://localhost:7071/api/IngredientesDelMenu/AsocieUnIngrediente", byteContent);
+                await httpClient.PostAsync("https://gestorderestaurante--si.azurewebsites.net/api/IngredientesDelMenu/AsocieUnIngrediente", byteContent);
                                    
               return RedirectToAction(nameof(Index));
             }
@@ -137,7 +137,7 @@ namespace GestorDeRestaurante.UI.Controllers
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
           
-                await httpClient.PutAsync("https://localhost:7071/api/IngredientesDelMenu/DesasocieUnIngrediente", byteContent);
+                await httpClient.PutAsync("https://gestorderestaurante--si.azurewebsites.net/api/IngredientesDelMenu/DesasocieUnIngrediente", byteContent);
 
             }
             catch (Exception ex)
