@@ -25,5 +25,12 @@ namespace GestorDeRestaurante.Model
         public double? GananciaAproximada { get; set; }
         [NotMapped]
         public int Id_Orden { get; set; }
+
+        [NotMapped]
+        public byte[] ImagenVieja { get; set; }
+        [Display(Name = "Imágen")]
+
+        [NotMapped]
+        public byte[]? ImagenNueva { get; set; }
     }
 }

@@ -136,6 +136,7 @@ namespace GestorDeRestaurante.UI.Controllers
                 var response = await httpClient.GetAsync(uri);
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 ELPlatillo = JsonConvert.DeserializeObject<GestorDeRestaurante.Model.Menu>(apiResponse);
+                ELPlatillo.ImagenVieja = ELPlatillo.Imagen;
             }
             catch (Exception ex)
             {
@@ -167,13 +168,18 @@ namespace GestorDeRestaurante.UI.Controllers
                         }
 
                     }
-                    elPlatillo.Nombre = Platillo.Nombre;
+                    elPlatillo.Imagen = p1;
+                } else { 
+                    elPlatillo.Imagen = Platillo.ImagenVieja;
+                
+                }
+                elPlatillo.Nombre = Platillo.Nombre;
                     elPlatillo.Id = Platillo.Id;
                     elPlatillo.Precio = Platillo.Precio;
                     elPlatillo.Categoria = Platillo.Categoria;
-                    elPlatillo.Imagen = p1;
+                
 
-                }
+              
 
 
                 var httpClient = new HttpClient();
